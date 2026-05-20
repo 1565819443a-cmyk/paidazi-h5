@@ -1,0 +1,128 @@
+.profile-container {
+  padding: 4vw;
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 16vw;
+}
+
+.user-card {
+  background: #fff;
+  border-radius: 3.2vw;
+  padding: 5.3vw;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4vw;
+  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+}
+
+.user-avatar {
+  width: 16vw;
+  height: 16vw;
+  border-radius: 50%;
+  margin-right: 4vw;
+  object-fit: cover;
+}
+
+.user-info { flex: 1; }
+
+.user-nickname {
+  font-size: 5.3vw;
+  font-weight: 600;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 1.3vw;
+}
+
+.credit-badge { display: flex; gap: 2.6vw; }
+
+.credit-score {
+  background: #fff3e0;
+  color: #e67e22;
+  padding: 0.8vw 2.6vw;
+  border-radius: 4vw;
+  font-size: 3.2vw;
+}
+
+.credit-rate {
+  background: #e8f5e9;
+  color: #2ecc71;
+  padding: 0.8vw 2.6vw;
+  border-radius: 4vw;
+  font-size: 3.2vw;
+}
+
+.edit-btn {
+  width: 21vw;
+  height: 8vw;
+  background: #ecf0f1;
+  color: #2c3e50;
+  font-size: 3.4vw;
+  border-radius: 4vw;
+  border: none;
+}
+
+.personality-card {
+  background: #fff;
+  border-radius: 3.2vw;
+  padding: 4vw;
+  margin-bottom: 4vw;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+}
+
+.personality-label { font-size: 4.2vw; color: #7f8c8d; margin-right: 2.6vw; }
+
+.personality-value {
+  flex: 1;
+  font-size: 4.2vw;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.personality-arrow { font-size: 5.3vw; color: #95a5a6; }
+
+.stats-grid {
+  background: #fff;
+  border-radius: 3.2vw;
+  padding: 4vw;
+  margin-bottom: 4vw;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+}
+
+.stat-item { display: flex; flex-direction: column; align-items: center; }
+
+.stat-num {
+  font-size: 6.4vw;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 1.3vw;
+}
+
+.stat-label { font-size: 3.4vw; color: #7f8c8d; }
+
+.menu-list {
+  background: #fff;
+  border-radius: 3.2vw;
+  overflow: hidden;
+  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 4vw 5.3vw;
+  border-bottom: 1px solid #ecf0f1;
+  cursor: pointer;
+}
+
+.menu-item:last-child { border-bottom: none; }
+
+.menu-icon { font-size: 5.3vw; width: 8vw; margin-right: 2.6vw; }
+
+.menu-text { flex: 1; font-size: 4.2vw; color: #2c3e50; }
+
+.menu-arrow { font-size: 5.3vw; color: #95a5a6; }

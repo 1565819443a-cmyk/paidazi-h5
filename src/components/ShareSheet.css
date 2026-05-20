@@ -1,0 +1,60 @@
+.sharesheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease;
+}
+
+.sharesheet-box {
+  background: #fff;
+  border-radius: 3.2vw 3.2vw 0 0;
+  width: 100%;
+  padding: 5vw 4vw 4vw;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.sharesheet-title {
+  font-size: 3.7vw;
+  color: #95a5a6;
+  text-align: center;
+  margin-bottom: 4vw;
+}
+
+.sharesheet-grid {
+  display: flex;
+  justify-content: center;
+  gap: 10vw;
+  margin-bottom: 5vw;
+}
+
+.sharesheet-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vw;
+  font-size: 3vw;
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+.sharesheet-icon {
+  font-size: 8vw;
+}
+
+.sharesheet-cancel {
+  width: 100%;
+  height: 11vw;
+  border: none;
+  background: #ecf0f1;
+  border-radius: 5vw;
+  font-size: 3.7vw;
+  cursor: pointer;
+}
