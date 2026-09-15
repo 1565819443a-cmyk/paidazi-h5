@@ -1,0 +1,24 @@
+.bookmarks-container {
+  padding: 4vw;
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 16vw;
+}
+.bm-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4vw;
+  padding: 3vw 0;
+}
+.bm-back {
+  font-size: 5.3vw;
+  color: #2c3e50;
+  margin-right: 4vw;
+  cursor: pointer;
+  padding: 1vw 2vw;
+}
+.bm-title {
+  font-size: 5.3vw;
+  font-weight: 600;
+  color: #2c3e50;
+}

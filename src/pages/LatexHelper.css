@@ -1,0 +1,15 @@
+.lh-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
+.lh-header { margin-bottom: 4vw; cursor: pointer; }
+.lh-back { font-size: 3.7vw; color: #e67e22; }
+.lh-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
+.lh-subtitle { font-size: 3.7vw; color: #7f8c8d; display: block; margin-top: 1vw; }
+.lh-tabs { display: flex; gap: 2vw; margin-bottom: 4vw; }
+.lh-tab { padding: 2vw 4vw; border-radius: 5.3vw; font-size: 3.7vw; background: #fff; color: #7f8c8d; cursor: pointer; }
+.lh-tab.active { background: #9b59b6; color: #fff; }
+.lh-list { display: flex; flex-direction: column; gap: 3vw; }
+.lh-card { background: #fff; border-radius: 3.2vw; padding: 4vw; box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05); }
+.lh-card-hd { display: flex; align-items: center; margin-bottom: 2.6vw; }
+.lh-card-name { font-size: 4.2vw; font-weight: 600; color: #2c3e50; }
+.lh-card-desc { font-size: 3.4vw; color: #95a5a6; margin-left: 2.6vw; flex: 1; }
+.lh-copy-btn { padding: 1vw 3vw; background: #9b59b6; color: #fff; border: none; border-radius: 4vw; font-size: 3.2vw; cursor: pointer; }
+.lh-code { background: #2c3e50; color: #2ecc71; padding: 3vw; border-radius: 2vw; font-size: 3vw; line-height: 1.6; overflow-x: auto; white-space: pre-wrap; word-break: break-all; margin-top: 1vw; }

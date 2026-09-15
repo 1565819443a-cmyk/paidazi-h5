@@ -1,0 +1,32 @@
+.cc-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
+.cc-header { display: flex; flex-direction: column; margin-bottom: 4vw; cursor: pointer; }
+.cc-back { font-size: 3.7vw; color: #e67e22; }
+.cc-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; margin-top: 1.3vw; }
+.cc-score-card { border-radius: 3.2vw; padding: 6vw; text-align: center; margin-bottom: 4vw; }
+.cc-score-big { font-size: 10.6vw; font-weight: bold; color: #2c3e50; }
+.cc-score-level { font-size: 5.3vw; font-weight: 600; margin: 2vw 0; }
+.cc-score-desc { font-size: 3.7vw; color: #7f8c8d; margin-bottom: 2vw; }
+.cc-score-rank { font-size: 3.7vw; color: #2c3e50; }
+.cc-section-title { font-size: 4.8vw; font-weight: 600; color: #2c3e50; margin: 5vw 0 3vw; }
+.cc-dimensions { display: flex; flex-direction: column; gap: 3vw; }
+.cc-dim-item { background: #fff; border-radius: 3.2vw; padding: 4vw; }
+.cc-dim-hd { display: flex; justify-content: space-between; margin-bottom: 2vw; }
+.cc-dim-name { font-size: 4vw; color: #2c3e50; font-weight: 500; }
+.cc-dim-score { font-size: 4vw; color: #e67e22; font-weight: 600; }
+.cc-progress { height: 1.6vw; background: #ecf0f1; border-radius: 0.8vw; overflow: hidden; margin-bottom: 1.3vw; }
+.cc-progress-fill { height: 100%; border-radius: 0.8vw; transition: width 0.3s; }
+.cc-dim-desc { font-size: 3.2vw; color: #95a5a6; }
+.cc-records { display: flex; flex-direction: column; gap: 2vw; }
+.cc-record-item { background: #fff; border-radius: 3.2vw; padding: 3vw 4vw; }
+.cc-record-hd { display: flex; justify-content: space-between; margin-bottom: 1vw; }
+.cc-record-reason { font-size: 3.7vw; color: #2c3e50; flex: 1; }
+.cc-record-score.positive { color: #2ecc71; font-weight: 600; font-size: 4vw; }
+.cc-record-score.negative { color: #e74c3c; font-weight: 600; font-size: 4vw; }
+.cc-record-time { font-size: 3.2vw; color: #95a5a6; }
+.cc-benefits { display: flex; flex-direction: column; gap: 2vw; }
+.cc-benefit-item { background: #fff; border-radius: 3.2vw; padding: 3vw 4vw; font-size: 3.7vw; color: #2c3e50; border-left: 1vw solid #2ecc71; }
+.cc-demo-btns { display: flex; flex-wrap: wrap; gap: 2.6vw; }
+.cc-demo-btn { padding: 2vw 4vw; border-radius: 5.3vw; font-size: 3.4vw; border: none; color: #fff; cursor: pointer; }
+.cc-demo-btn.positive { background: #2ecc71; }
+.cc-demo-btn.negative { background: #e74c3c; }
+.cc-tip { text-align: center; padding: 4vw; font-size: 3.7vw; color: #95a5a6; margin-top: 4vw; }

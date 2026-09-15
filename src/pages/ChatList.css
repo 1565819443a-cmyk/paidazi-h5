@@ -1,0 +1,19 @@
+.cl-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
+.cl-header { margin-bottom: 4vw; cursor: pointer; }
+.cl-back { font-size: 3.7vw; color: #e67e22; }
+.cl-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
+.cl-list { display: flex; flex-direction: column; gap: 2vw; }
+.cl-item { background: #fff; border-radius: 3.2vw; padding: 3vw 4vw; display: flex; align-items: center; gap: 3vw; cursor: pointer; }
+.cl-avatar-wrap { position: relative; }
+.cl-avatar { width: 13vw; height: 13vw; border-radius: 50%; object-fit: cover; }
+.cl-unread-badge { position: absolute; top: -1vw; right: -1vw; background: #e74c3c; color: #fff; font-size: 2.6vw; padding: 0.5vw 1.3vw; border-radius: 3vw; min-width: 4.5vw; text-align: center; }
+.cl-info { flex: 1; }
+.cl-info-hd { display: flex; align-items: center; gap: 2vw; margin-bottom: 1vw; }
+.cl-name { font-size: 4.2vw; font-weight: 600; color: #2c3e50; }
+.cl-last-msg { font-size: 3.4vw; color: #95a5a6; }
+.cl-meta { text-align: right; }
+.cl-time { font-size: 3vw; color: #95a5a6; display: block; }
+.cl-spark { font-size: 3vw; color: #e67e22; display: block; margin-top: 0.5vw; }
+.cl-match { font-size: 3vw; color: #3498db; display: block; margin-top: 0.5vw; }
+.cl-empty { text-align: center; padding: 15vw 5vw; color: #95a5a6; font-size: 4.2vw; background: #fff; border-radius: 3.2vw; }
+.cl-tip { text-align: center; padding: 4vw; font-size: 3.4vw; color: #95a5a6; margin-top: 4vw; }

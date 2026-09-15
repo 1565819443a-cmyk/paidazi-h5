@@ -1,0 +1,28 @@
+.sp-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
+.sp-header { margin-bottom: 4vw; cursor: pointer; }
+.sp-back { font-size: 3.7vw; color: #e67e22; }
+.sp-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
+.sp-subtitle { font-size: 3.7vw; color: #7f8c8d; display: block; margin-top: 1vw; }
+.sp-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.6vw; margin-bottom: 5vw; }
+.sp-type-item { background: #fff; border-radius: 3.2vw; padding: 3vw 2vw; text-align: center; cursor: pointer; }
+.sp-type-icon { font-size: 6vw; display: block; margin-bottom: 1.3vw; }
+.sp-type-label { font-size: 3.4vw; color: #2c3e50; font-weight: 500; display: block; }
+.sp-type-desc { font-size: 2.6vw; color: #95a5a6; display: block; margin-top: 0.5vw; }
+.sp-section-title { font-size: 4.8vw; font-weight: 600; color: #2c3e50; margin-bottom: 3vw; }
+.sp-list { display: flex; flex-direction: column; gap: 3vw; }
+.sp-card { background: #fff; border-radius: 3.2vw; padding: 4vw; box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05); }
+.sp-card-hd { display: flex; align-items: center; margin-bottom: 3vw; }
+.sp-avatar { width: 12vw; height: 12vw; border-radius: 50%; margin-right: 3vw; object-fit: cover; }
+.sp-user { flex: 1; }
+.sp-nickname { font-size: 4.5vw; font-weight: 600; color: #2c3e50; display: block; }
+.sp-study-type { font-size: 3.4vw; color: #e67e22; }
+.sp-match { font-size: 4vw; color: #e67e22; font-weight: 600; }
+.sp-tags { display: flex; gap: 2vw; margin-bottom: 2.6vw; }
+.sp-tag { font-size: 3.2vw; color: #7f8c8d; background: #f8f9fa; padding: 1vw 2.6vw; border-radius: 4vw; }
+.sp-skills { display: flex; flex-wrap: wrap; gap: 1.6vw; margin-bottom: 3vw; }
+.sp-skill-tag { padding: 0.8vw 2.6vw; background: #f0f3f4; border-radius: 5.3vw; font-size: 3.2vw; color: #2c3e50; }
+.sp-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #ecf0f1; padding-top: 3vw; }
+.sp-credit-wrap { display: flex; flex-direction: column; }
+.sp-credit { font-size: 3.4vw; }
+.sp-reason { font-size: 3vw; color: #7f8c8d; margin-top: 0.5vw; }
+.sp-invite-btn { padding: 1.6vw 6vw; background: #e67e22; color: #fff; border: none; border-radius: 5.3vw; font-size: 3.7vw; cursor: pointer; }

@@ -1,0 +1,64 @@
+.my-invites-container {
+  padding: 4vw;
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 16vw;
+}
+.mi-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4vw;
+  padding: 3vw 0;
+}
+.mi-back {
+  font-size: 5.3vw;
+  color: #2c3e50;
+  margin-right: 4vw;
+  cursor: pointer;
+  padding: 1vw 2vw;
+}
+.mi-title {
+  font-size: 5.3vw;
+  font-weight: 600;
+  color: #2c3e50;
+}
+.mi-item {
+  background: #fff;
+  border-radius: 3.2vw;
+  padding: 4vw;
+  margin-bottom: 2.6vw;
+  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+}
+.mi-to {
+  font-size: 4.2vw;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.3vw;
+}
+.mi-content {
+  font-size: 3.7vw;
+  color: #7f8c8d;
+  margin-bottom: 2vw;
+}
+.mi-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mi-time {
+  font-size: 3.2vw;
+  color: #95a5a6;
+}
+.mi-status {
+  padding: 1vw 3vw;
+  border-radius: 4vw;
+  font-size: 3.2vw;
+}
+.mi-status.pending {
+  background: #fff3e0;
+  color: #e67e22;
+}
+.mi-status.accepted {
+  background: #e8f5e9;
+  color: #2ecc71;
+}

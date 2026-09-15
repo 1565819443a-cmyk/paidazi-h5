@@ -1,0 +1,10 @@
+.tb-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
+.tb-header { margin-bottom: 5vw; cursor: pointer; }
+.tb-back { font-size: 3.7vw; color: #e67e22; }
+.tb-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
+.tb-subtitle { font-size: 3.7vw; color: #7f8c8d; display: block; margin-top: 1vw; }
+.tb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; }
+.tb-card { background: #fff; border-radius: 3.2vw; padding: 5vw 3vw; text-align: center; cursor: pointer; box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05); }
+.tb-icon { font-size: 8vw; display: block; margin-bottom: 2vw; }
+.tb-card-title { font-size: 4.5vw; font-weight: 600; color: #2c3e50; display: block; margin-bottom: 1.3vw; }
+.tb-card-desc { font-size: 3.2vw; color: #95a5a6; }

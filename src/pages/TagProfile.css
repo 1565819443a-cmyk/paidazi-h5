@@ -1,0 +1,16 @@
+.tp-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 16vw; }
+.tp-header { margin-bottom: 4vw; cursor: pointer; }
+.tp-back { font-size: 3.7vw; color: #e67e22; }
+.tp-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
+.tp-subtitle { font-size: 3.7vw; color: #7f8c8d; display: block; margin-top: 1vw; }
+.tp-hint { background: #fff3e0; color: #e67e22; padding: 3vw 4vw; border-radius: 3.2vw; font-size: 3.7vw; margin-bottom: 4vw; text-align: center; }
+.tp-basic { background: #fff; border-radius: 3.2vw; padding: 4vw; margin-bottom: 4vw; display: flex; flex-direction: column; gap: 3vw; }
+.tp-field { display: flex; flex-direction: column; gap: 1vw; }
+.tp-field label { font-size: 3.7vw; color: #7f8c8d; }
+.tp-field input, .tp-field select { height: 10.6vw; border: 1px solid #ecf0f1; border-radius: 2vw; padding: 0 3vw; font-size: 3.7vw; outline: none; background: #fff; }
+.tp-category { margin-bottom: 4vw; }
+.tp-cat-title { font-size: 4.2vw; font-weight: 600; color: #2c3e50; margin-bottom: 2.6vw; }
+.tp-tags { display: flex; flex-wrap: wrap; gap: 2vw; }
+.tp-tag { padding: 1.6vw 3.7vw; border-radius: 5.3vw; font-size: 3.4vw; background: #fff; color: #7f8c8d; cursor: pointer; border: 1px solid #ecf0f1; }
+.tp-tag.selected { background: #e67e22; color: #fff; border-color: #e67e22; }
+.tp-save-btn { width: 100%; padding: 3.7vw; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; border-radius: 3.2vw; font-size: 4.5vw; cursor: pointer; margin-top: 2vw; }

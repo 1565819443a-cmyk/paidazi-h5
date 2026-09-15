@@ -1,0 +1,21 @@
+.cn-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
+.cn-header { margin-bottom: 4vw; cursor: pointer; }
+.cn-back { font-size: 3.7vw; color: #e67e22; }
+.cn-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
+.cn-subtitle { font-size: 3.7vw; color: #7f8c8d; display: block; margin-top: 1vw; }
+.cn-filters { margin-bottom: 4vw; }
+.cn-filter-group { display: flex; align-items: center; gap: 2vw; margin-bottom: 2vw; }
+.cn-filter-label { font-size: 3.4vw; color: #2c3e50; font-weight: 500; min-width: 10vw; }
+.cn-filter-item { padding: 1vw 2.6vw; border-radius: 4vw; font-size: 3.2vw; background: #fff; color: #7f8c8d; cursor: pointer; }
+.cn-filter-item.active { background: #e67e22; color: #fff; }
+.cn-list { display: flex; flex-direction: column; gap: 3vw; }
+.cn-card { background: #fff; border-radius: 3.2vw; padding: 4vw; box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05); }
+.cn-card-hd { display: flex; justify-content: space-between; margin-bottom: 1vw; }
+.cn-dish { font-size: 4.5vw; font-weight: 600; color: #2c3e50; }
+.cn-price { font-size: 5vw; font-weight: bold; color: #e67e22; }
+.cn-card-sub { font-size: 3.4vw; color: #7f8c8d; margin-bottom: 2vw; }
+.cn-tags { display: flex; flex-wrap: wrap; gap: 1.6vw; margin-bottom: 2vw; }
+.cn-tag { padding: 0.8vw 2vw; background: #f0f3f4; border-radius: 4vw; font-size: 3vw; color: #2c3e50; }
+.cn-queue, .cn-rating, .cn-dist { font-size: 3vw; color: #7f8c8d; padding: 0.8vw 2vw; }
+.cn-reason { font-size: 3.4vw; color: #7f8c8d; margin-bottom: 2vw; }
+.cn-meal-btn { width: 100%; padding: 2.6vw; background: linear-gradient(135deg, #e67e22, #f39c12); color: #fff; border: none; border-radius: 5.3vw; font-size: 3.7vw; cursor: pointer; }

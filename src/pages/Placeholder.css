@@ -1,0 +1,22 @@
+.placeholder-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 4vw;
+  text-align: center;
+}
+
+.placeholder-icon { font-size: 16vw; margin-bottom: 4vw; }
+
+.placeholder-page h1 {
+  font-size: 5.3vw;
+  color: #2c3e50;
+  margin-bottom: 2vw;
+}
+
+.placeholder-page p {
+  font-size: 3.7vw;
+  color: #95a5a6;
+}
