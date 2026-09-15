@@ -8,19 +8,19 @@
 }
 
 @keyframes toastIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(-2vw); }
+  from { opacity: 0; transform: translateX(-50%) translateY(calc(-1 * min(2vw, 9.6px))); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 .toast-box {
   display: flex;
   align-items: center;
-  gap: 1.3vw;
+  gap: min(1.3vw, 6.24px);
   background: rgba(0, 0, 0, 0.78);
   color: #fff;
-  padding: 2.6vw 5.3vw;
-  border-radius: 2vw;
-  font-size: 3.7vw;
+  padding: min(2.6vw, 12.48px) min(5.3vw, 25.44px);
+  border-radius: min(2vw, 9.6px);
+  font-size: min(3.7vw, 17.76px);
   white-space: nowrap;
 }
 

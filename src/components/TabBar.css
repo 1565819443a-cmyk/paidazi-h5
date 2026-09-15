@@ -7,7 +7,7 @@
   justify-content: space-around;
   background: #fff;
   border-top: 1px solid #ecf0f1;
-  padding: 1.3vw 0 2.6vw;
+  padding: min(1.3vw, 6.24px) 0 min(2.6vw, 12.48px);
   z-index: 1000;
 }
 
@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5vw;
+  gap: min(0.5vw, 2.4px);
   cursor: pointer;
   color: #999;
   transition: color 0.2s;
@@ -26,9 +26,9 @@
 }
 
 .tab-icon {
-  font-size: 5.3vw;
+  font-size: min(5.3vw, 25.44px);
 }
 
 .tab-label {
-  font-size: 2.6vw;
+  font-size: min(2.6vw, 12.48px);
 }

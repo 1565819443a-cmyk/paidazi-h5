@@ -112,12 +112,12 @@ export default function Publish() {
 
         <div className="form-item">
           <span className="label">📝 标题</span>
-          <input className="input" placeholder="请输入标题" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input className="input" maxLength={40} placeholder="请输入标题（最多40字）" value={title} onChange={(e) => setTitle(e.target.value)} />
         </div>
 
         <div className="form-item">
           <span className="label">📄 内容</span>
-          <textarea className="textarea" placeholder="请详细描述..." value={content} onChange={(e) => setContent(e.target.value)} />
+          <textarea className="textarea" maxLength={500} placeholder="请详细描述（最多500字）" value={content} onChange={(e) => setContent(e.target.value)} />
         </div>
 
         {selectedType === 'secondhand' && (
@@ -129,7 +129,8 @@ export default function Publish() {
 
         <div className="form-item">
           <span className="label">📱 联系方式</span>
-          <input className="input" placeholder="微信/QQ/手机号（选填）" value={contact} onChange={(e) => setContact(e.target.value)} />
+          <input className="input" maxLength={50} placeholder="微信/QQ（选填，请勿填写手机号）" value={contact} onChange={(e) => setContact(e.target.value)} />
+          <span className="privacy-hint">联系方式会随内容公开展示，请勿填写手机号、宿舍号等敏感信息。</span>
         </div>
 
         <button className="submit-btn" onClick={submitForm} disabled={submitting}>

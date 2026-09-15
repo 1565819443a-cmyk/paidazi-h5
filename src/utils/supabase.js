@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { demoDemands, demoPosts } from '../mock/demoData';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -111,12 +112,23 @@ export async function updateCurrentProfile(updates) {
 }
 
 export async function fetchPosts() {
-  const { data, error } = await supabase
-    .from(TABLES.posts)
-    .select('*')
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data || []).map(normalizePost);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
+  try {
+    const { data, error } = await supabase
+      .from(TABLES.posts)
+      .select('*')
+      .abortSignal(controller.signal)
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    if (!data?.length) return demoPosts.map((item) => normalizePost({ ...item, demo_reason: 'empty' }));
+    return data.map(normalizePost);
+  } catch (error) {
+    console.warn('实时社区暂不可用，已切换到示例内容。', error);
+    return demoPosts.map((item) => normalizePost({ ...item, demo_reason: 'offline' }));
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 export async function fetchPost(postId) {
@@ -203,12 +215,23 @@ export async function createComment(comment) {
 }
 
 export async function fetchDemands() {
-  const { data, error } = await supabase
-    .from(TABLES.demands)
-    .select('*')
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data || []).map(normalizeDemand);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
+  try {
+    const { data, error } = await supabase
+      .from(TABLES.demands)
+      .select('*')
+      .abortSignal(controller.signal)
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    if (!data?.length) return demoDemands.map((item) => normalizeDemand({ ...item, demo_reason: 'empty' }));
+    return data.map(normalizeDemand);
+  } catch (error) {
+    console.warn('实时搭子数据暂不可用，已切换到示例内容。', error);
+    return demoDemands.map((item) => normalizeDemand({ ...item, demo_reason: 'offline' }));
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 export async function createDemand(demand) {

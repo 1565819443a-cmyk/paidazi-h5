@@ -16,10 +16,10 @@
 
 .modal-box {
   background: #fff;
-  border-radius: 3.2vw;
-  width: 80vw;
+  border-radius: min(3.2vw, 15.36px);
+  width: min(80vw, 384px);
   max-width: 400px;
-  padding: 5.3vw 4vw 4vw;
+  padding: min(5.3vw, 25.44px) min(4vw, 19.2px) min(4vw, 19.2px);
   animation: scaleIn 0.2s ease;
 }
 
@@ -29,31 +29,31 @@
 }
 
 .modal-title {
-  font-size: 4.8vw;
+  font-size: min(4.8vw, 23.04px);
   font-weight: 600;
   color: #2c3e50;
   text-align: center;
-  margin-bottom: 3vw;
+  margin-bottom: min(3vw, 14.4px);
 }
 
 .modal-content {
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #7f8c8d;
   text-align: center;
-  margin-bottom: 5vw;
+  margin-bottom: min(5vw, 24px);
   line-height: 1.6;
 }
 
 .modal-actions {
   display: flex;
-  gap: 2.6vw;
+  gap: min(2.6vw, 12.48px);
 }
 
 .modal-btn {
   flex: 1;
-  height: 10.6vw;
-  border-radius: 5vw;
-  font-size: 3.7vw;
+  height: min(10.6vw, 50.88px);
+  border-radius: min(5vw, 24px);
+  font-size: min(3.7vw, 17.76px);
   border: none;
   cursor: pointer;
 }

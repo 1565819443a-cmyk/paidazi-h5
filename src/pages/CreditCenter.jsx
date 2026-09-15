@@ -19,14 +19,13 @@ export default function CreditCenter() {
     <div className="cc-container">
       <div className="cc-header" onClick={() => navigate(-1)}>
         <span className="cc-back">‹ 返回</span>
-        <span className="cc-title">信用中心</span>
+        <span className="cc-title">信用中心 · 机制演示</span>
       </div>
 
       <div className="cc-score-card" style={{ background: `linear-gradient(135deg, ${level.color}22, ${level.color}44)` }}>
         <div className="cc-score-big">{data.score}</div>
         <div className="cc-score-level" style={{ color: level.color }}>{level.level} · {getCreditBadge(data.score)}</div>
-        <div className="cc-score-desc">信用分越高，越容易获得优质搭子推荐</div>
-        <div className="cc-score-rank">🎉 超过 <b>{data.rankPercent}%</b> 的校园用户</div>
+        <div className="cc-score-desc">评分规则原型，仅用于演示守约激励机制，不代表真实信用评价</div>
       </div>
 
       <div className="cc-section-title">📊 信用维度</div>
@@ -45,6 +44,7 @@ export default function CreditCenter() {
 
       <div className="cc-section-title">📋 信用记录</div>
       <div className="cc-records">
+        {data.logs.length === 0 && <div className="cc-record-item">暂无真实履约记录，可在下方体验评分变化</div>}
         {data.logs.map((log, i) => (
           <div key={i} className="cc-record-item">
             <div className="cc-record-hd">
@@ -73,7 +73,7 @@ export default function CreditCenter() {
         ))}
       </div>
 
-      <div className="cc-tip">守约、友好、及时回复会提升信用分</div>
+      <div className="cc-tip">演示规则：守约、友好、及时回复会提升体验分</div>
     </div>
   );
 }

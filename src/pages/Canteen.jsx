@@ -26,6 +26,8 @@ export default function Canteen() {
         <span className="cn-subtitle">帮你做午饭选择</span>
       </div>
 
+      <div className="cn-demo-notice">菜单、价格、排队和评分为功能示例，请以食堂现场为准。</div>
+
       <div className="cn-filters">
         <div className="cn-filter-group">
           <span className="cn-filter-label">价格</span>

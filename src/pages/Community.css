@@ -1,73 +1,73 @@
 .community-container {
-  padding: 4vw;
+  padding: min(4vw, 19.2px);
   background: #f8f9fa;
   min-height: 100vh;
-  padding-bottom: 16vw;
+  padding-bottom: min(16vw, 76.8px);
 }
 
-.comm-header { margin-bottom: 4vw; }
+.comm-header { margin-bottom: min(4vw, 19.2px); }
 
 .comm-title {
-  font-size: 6.4vw;
+  font-size: min(6.4vw, 30.72px);
   font-weight: bold;
   color: #2c3e50;
   display: block;
 }
 
 .comm-subtitle {
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #7f8c8d;
-  margin-top: 1.3vw;
+  margin-top: min(1.3vw, 6.24px);
   display: block;
 }
 
 .publish-card {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 4vw;
-  margin-bottom: 4vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(4vw, 19.2px);
+  margin-bottom: min(4vw, 19.2px);
   display: flex;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
 }
 
 .publish-avatar {
-  width: 9.3vw;
-  height: 9.3vw;
+  width: min(9.3vw, 44.64px);
+  height: min(9.3vw, 44.64px);
   border-radius: 50%;
-  margin-right: 2.6vw;
+  margin-right: min(2.6vw, 12.48px);
   object-fit: cover;
 }
 
 .publish-placeholder {
   flex: 1;
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #95a5a6;
 }
 
 .publish-btn {
   background: #e67e22;
   color: #fff;
-  padding: 1.6vw 4vw;
-  border-radius: 5.3vw;
-  font-size: 3.4vw;
+  padding: min(1.6vw, 7.68px) min(4vw, 19.2px);
+  border-radius: min(5.3vw, 25.44px);
+  font-size: min(3.4vw, 16.32px);
 }
 
 .category-tabs {
   display: flex;
   flex-wrap: wrap;
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 2.6vw;
-  margin-bottom: 4vw;
-  gap: 1.3vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(2.6vw, 12.48px);
+  margin-bottom: min(4vw, 19.2px);
+  gap: min(1.3vw, 6.24px);
 }
 
 .category-tabs .tab-item {
-  padding: 1.6vw 3.2vw;
-  border-radius: 5.3vw;
-  font-size: 3.4vw;
+  padding: min(1.6vw, 7.68px) min(3.2vw, 15.36px);
+  border-radius: min(5.3vw, 25.44px);
+  font-size: min(3.4vw, 16.32px);
   color: #7f8c8d;
   background: #f8f9fa;
   cursor: pointer;
@@ -78,14 +78,28 @@
   color: #fff;
 }
 
-.post-list { display: flex; flex-direction: column; gap: 4vw; }
+.community-demo-notice {
+  display: flex;
+  flex-direction: column;
+  gap: min(1vw, 4.8px);
+  margin-bottom: min(4vw, 19.2px);
+  padding: min(3vw, 14.4px) min(3.5vw, 16.8px);
+  border: 1px solid #ffe0b2;
+  border-radius: min(2.6vw, 12.48px);
+  color: #8a5a16;
+  background: #fff9ef;
+  font-size: min(3.2vw, 15.36px);
+  line-height: 1.55;
+}
+
+.post-list { display: flex; flex-direction: column; gap: min(4vw, 19.2px); }
 
 .post-item {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 4vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(4vw, 19.2px);
   cursor: pointer;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
   transition: transform 0.1s;
 }
 
@@ -94,38 +108,38 @@
 .post-header {
   display: flex;
   align-items: center;
-  margin-bottom: 2.6vw;
+  margin-bottom: min(2.6vw, 12.48px);
   position: relative;
 }
 
 .post-avatar {
-  width: 9.3vw;
-  height: 9.3vw;
+  width: min(9.3vw, 44.64px);
+  height: min(9.3vw, 44.64px);
   border-radius: 50%;
-  margin-right: 2.6vw;
+  margin-right: min(2.6vw, 12.48px);
   object-fit: cover;
 }
 
 .post-user { flex: 1; }
 
 .post-nickname {
-  font-size: 4.2vw;
+  font-size: min(4.2vw, 20.16px);
   font-weight: 600;
   color: #2c3e50;
   display: block;
 }
 
 .post-time {
-  font-size: 3.2vw;
+  font-size: min(3.2vw, 15.36px);
   color: #95a5a6;
   display: block;
-  margin-top: 0.8vw;
+  margin-top: min(0.8vw, 3.84px);
 }
 
 .post-cat {
-  padding: 0.8vw 2.6vw;
-  border-radius: 4vw;
-  font-size: 3.2vw;
+  padding: min(0.8vw, 3.84px) min(2.6vw, 12.48px);
+  border-radius: min(4vw, 19.2px);
+  font-size: min(3.2vw, 15.36px);
   color: #fff;
   position: absolute;
   right: 0;
@@ -144,52 +158,52 @@
 .post-cat.tool { background: #16a085; }
 .post-cat.qa { background: #c0392b; }
 
-.post-content { margin-bottom: 4vw; }
+.post-content { margin-bottom: min(4vw, 19.2px); }
 
 .post-text {
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #2c3e50;
   line-height: 1.6;
   display: block;
-  margin-bottom: 2.6vw;
+  margin-bottom: min(2.6vw, 12.48px);
 }
 
 .post-link {
   background: #f0f7ff;
-  padding: 2.6vw;
-  border-radius: 2vw;
+  padding: min(2.6vw, 12.48px);
+  border-radius: min(2vw, 9.6px);
   display: flex;
   align-items: center;
-  gap: 1.3vw;
+  gap: min(1.3vw, 6.24px);
   border: 1px solid #d0e0ff;
 }
 
-.link-icon { font-size: 4.2vw; }
-.link-text { font-size: 3.4vw; color: #3498db; flex: 1; }
+.link-icon { font-size: min(4.2vw, 20.16px); }
+.link-text { font-size: min(3.4vw, 16.32px); color: #3498db; flex: 1; }
 
 .post-actions {
   display: flex;
   justify-content: space-around;
   border-top: 1px solid #ecf0f1;
-  padding-top: 4vw;
+  padding-top: min(4vw, 19.2px);
 }
 
 .action-item {
   display: flex;
   align-items: center;
-  gap: 1.3vw;
+  gap: min(1.3vw, 6.24px);
   cursor: pointer;
-  padding: 0 4vw;
+  padding: 0 min(4vw, 19.2px);
 }
 
-.action-icon { font-size: 4.8vw; }
-.action-text { font-size: 3.4vw; color: #7f8c8d; }
+.action-icon { font-size: min(4.8vw, 23.04px); }
+.action-text { font-size: min(3.4vw, 16.32px); color: #7f8c8d; }
 
 .empty {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 13vw 5vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(13vw, 62.4px) min(5vw, 24px);
   text-align: center;
 }
 
-.empty-text { font-size: 4.2vw; color: #95a5a6; }
+.empty-text { font-size: min(4.2vw, 20.16px); color: #95a5a6; }

@@ -1,135 +1,135 @@
 .profile-container {
-  padding: 4vw;
+  padding: min(4vw, 19.2px);
   background: #f8f9fa;
   min-height: 100vh;
-  padding-bottom: 16vw;
+  padding-bottom: min(16vw, 76.8px);
 }
 
 .user-card {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 5.3vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(5.3vw, 25.44px);
   display: flex;
   align-items: center;
-  margin-bottom: 4vw;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  margin-bottom: min(4vw, 19.2px);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
 }
 
 .user-avatar {
-  width: 16vw;
-  height: 16vw;
+  width: min(16vw, 76.8px);
+  height: min(16vw, 76.8px);
   border-radius: 50%;
-  margin-right: 4vw;
+  margin-right: min(4vw, 19.2px);
   object-fit: cover;
 }
 
 .user-info { flex: 1; }
 
 .user-nickname {
-  font-size: 5.3vw;
+  font-size: min(5.3vw, 25.44px);
   font-weight: 600;
   color: #2c3e50;
   display: block;
-  margin-bottom: 1.3vw;
+  margin-bottom: min(1.3vw, 6.24px);
 }
 
 .profile-phone {
   display: block;
   color: #7f8c8d;
-  font-size: 3.2vw;
-  margin-bottom: 1.6vw;
+  font-size: min(3.2vw, 15.36px);
+  margin-bottom: min(1.6vw, 7.68px);
 }
 
-.credit-badge { display: flex; gap: 2.6vw; }
+.credit-badge { display: flex; gap: min(2.6vw, 12.48px); }
 
 .credit-score {
   background: #fff3e0;
   color: #e67e22;
-  padding: 0.8vw 2.6vw;
-  border-radius: 4vw;
-  font-size: 3.2vw;
+  padding: min(0.8vw, 3.84px) min(2.6vw, 12.48px);
+  border-radius: min(4vw, 19.2px);
+  font-size: min(3.2vw, 15.36px);
 }
 
 .credit-rate {
   background: #e8f5e9;
   color: #2ecc71;
-  padding: 0.8vw 2.6vw;
-  border-radius: 4vw;
-  font-size: 3.2vw;
+  padding: min(0.8vw, 3.84px) min(2.6vw, 12.48px);
+  border-radius: min(4vw, 19.2px);
+  font-size: min(3.2vw, 15.36px);
 }
 
 .edit-btn {
-  width: 21vw;
-  height: 8vw;
+  width: min(21vw, 100.8px);
+  height: min(8vw, 38.4px);
   background: #ecf0f1;
   color: #2c3e50;
-  font-size: 3.4vw;
-  border-radius: 4vw;
+  font-size: min(3.4vw, 16.32px);
+  border-radius: min(4vw, 19.2px);
   border: none;
 }
 
 .personality-card {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 4vw;
-  margin-bottom: 4vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(4vw, 19.2px);
+  margin-bottom: min(4vw, 19.2px);
   display: flex;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
 }
 
-.personality-label { font-size: 4.2vw; color: #7f8c8d; margin-right: 2.6vw; }
+.personality-label { font-size: min(4.2vw, 20.16px); color: #7f8c8d; margin-right: min(2.6vw, 12.48px); }
 
 .personality-value {
   flex: 1;
-  font-size: 4.2vw;
+  font-size: min(4.2vw, 20.16px);
   color: #2c3e50;
   font-weight: 500;
 }
 
-.personality-arrow { font-size: 5.3vw; color: #95a5a6; }
+.personality-arrow { font-size: min(5.3vw, 25.44px); color: #95a5a6; }
 
 .stats-grid {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 4vw;
-  margin-bottom: 4vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(4vw, 19.2px);
+  margin-bottom: min(4vw, 19.2px);
   display: flex;
   justify-content: space-around;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
 }
 
 .stat-item { display: flex; flex-direction: column; align-items: center; }
 
 .stat-num {
-  font-size: 6.4vw;
+  font-size: min(6.4vw, 30.72px);
   font-weight: bold;
   color: #2c3e50;
-  margin-bottom: 1.3vw;
+  margin-bottom: min(1.3vw, 6.24px);
 }
 
-.stat-label { font-size: 3.4vw; color: #7f8c8d; }
+.stat-label { font-size: min(3.4vw, 16.32px); color: #7f8c8d; }
 
 .menu-list {
   background: #fff;
-  border-radius: 3.2vw;
+  border-radius: min(3.2vw, 15.36px);
   overflow: hidden;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
 }
 
 .menu-item {
   display: flex;
   align-items: center;
-  padding: 4vw 5.3vw;
+  padding: min(4vw, 19.2px) min(5.3vw, 25.44px);
   border-bottom: 1px solid #ecf0f1;
   cursor: pointer;
 }
 
 .menu-item:last-child { border-bottom: none; }
 
-.menu-icon { font-size: 5.3vw; width: 8vw; margin-right: 2.6vw; }
+.menu-icon { font-size: min(5.3vw, 25.44px); width: min(8vw, 38.4px); margin-right: min(2.6vw, 12.48px); }
 
-.menu-text { flex: 1; font-size: 4.2vw; color: #2c3e50; }
+.menu-text { flex: 1; font-size: min(4.2vw, 20.16px); color: #2c3e50; }
 
-.menu-arrow { font-size: 5.3vw; color: #95a5a6; }
+.menu-arrow { font-size: min(5.3vw, 25.44px); color: #95a5a6; }

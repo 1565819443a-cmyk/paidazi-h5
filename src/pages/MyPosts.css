@@ -1,24 +1,24 @@
 .my-posts-container {
-  padding: 4vw;
+  padding: min(4vw, 19.2px);
   background: #f8f9fa;
   min-height: 100vh;
-  padding-bottom: 16vw;
+  padding-bottom: min(16vw, 76.8px);
 }
 .mp-header {
   display: flex;
   align-items: center;
-  margin-bottom: 4vw;
-  padding: 3vw 0;
+  margin-bottom: min(4vw, 19.2px);
+  padding: min(3vw, 14.4px) 0;
 }
 .mp-back {
-  font-size: 5.3vw;
+  font-size: min(5.3vw, 25.44px);
   color: #2c3e50;
-  margin-right: 4vw;
+  margin-right: min(4vw, 19.2px);
   cursor: pointer;
-  padding: 1vw 2vw;
+  padding: min(1vw, 4.8px) min(2vw, 9.6px);
 }
 .mp-title {
-  font-size: 5.3vw;
+  font-size: min(5.3vw, 25.44px);
   font-weight: 600;
   color: #2c3e50;
 }

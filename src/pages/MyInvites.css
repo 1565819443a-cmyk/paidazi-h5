@@ -1,44 +1,44 @@
 .my-invites-container {
-  padding: 4vw;
+  padding: min(4vw, 19.2px);
   background: #f8f9fa;
   min-height: 100vh;
-  padding-bottom: 16vw;
+  padding-bottom: min(16vw, 76.8px);
 }
 .mi-header {
   display: flex;
   align-items: center;
-  margin-bottom: 4vw;
-  padding: 3vw 0;
+  margin-bottom: min(4vw, 19.2px);
+  padding: min(3vw, 14.4px) 0;
 }
 .mi-back {
-  font-size: 5.3vw;
+  font-size: min(5.3vw, 25.44px);
   color: #2c3e50;
-  margin-right: 4vw;
+  margin-right: min(4vw, 19.2px);
   cursor: pointer;
-  padding: 1vw 2vw;
+  padding: min(1vw, 4.8px) min(2vw, 9.6px);
 }
 .mi-title {
-  font-size: 5.3vw;
+  font-size: min(5.3vw, 25.44px);
   font-weight: 600;
   color: #2c3e50;
 }
 .mi-item {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 4vw;
-  margin-bottom: 2.6vw;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(4vw, 19.2px);
+  margin-bottom: min(2.6vw, 12.48px);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
 }
 .mi-to {
-  font-size: 4.2vw;
+  font-size: min(4.2vw, 20.16px);
   font-weight: 600;
   color: #2c3e50;
-  margin-bottom: 1.3vw;
+  margin-bottom: min(1.3vw, 6.24px);
 }
 .mi-content {
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #7f8c8d;
-  margin-bottom: 2vw;
+  margin-bottom: min(2vw, 9.6px);
 }
 .mi-footer {
   display: flex;
@@ -46,13 +46,13 @@
   align-items: center;
 }
 .mi-time {
-  font-size: 3.2vw;
+  font-size: min(3.2vw, 15.36px);
   color: #95a5a6;
 }
 .mi-status {
-  padding: 1vw 3vw;
-  border-radius: 4vw;
-  font-size: 3.2vw;
+  padding: min(1vw, 4.8px) min(3vw, 14.4px);
+  border-radius: min(4vw, 19.2px);
+  font-size: min(3.2vw, 15.36px);
 }
 .mi-status.pending {
   background: #fff3e0;

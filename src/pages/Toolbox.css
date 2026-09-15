@@ -1,10 +1,10 @@
-.tb-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
-.tb-header { margin-bottom: 5vw; cursor: pointer; }
-.tb-back { font-size: 3.7vw; color: #e67e22; }
-.tb-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
-.tb-subtitle { font-size: 3.7vw; color: #7f8c8d; display: block; margin-top: 1vw; }
-.tb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; }
-.tb-card { background: #fff; border-radius: 3.2vw; padding: 5vw 3vw; text-align: center; cursor: pointer; box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05); }
-.tb-icon { font-size: 8vw; display: block; margin-bottom: 2vw; }
-.tb-card-title { font-size: 4.5vw; font-weight: 600; color: #2c3e50; display: block; margin-bottom: 1.3vw; }
-.tb-card-desc { font-size: 3.2vw; color: #95a5a6; }
+.tb-container { padding: min(4vw, 19.2px); background: #f8f9fa; min-height: 100vh; padding-bottom: min(12vw, 57.6px); }
+.tb-header { margin-bottom: min(5vw, 24px); cursor: pointer; }
+.tb-back { font-size: min(3.7vw, 17.76px); color: #e67e22; }
+.tb-title { font-size: min(6.4vw, 30.72px); font-weight: bold; color: #2c3e50; display: block; margin-top: min(1.3vw, 6.24px); }
+.tb-subtitle { font-size: min(3.7vw, 17.76px); color: #7f8c8d; display: block; margin-top: min(1vw, 4.8px); }
+.tb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: min(3vw, 14.4px); }
+.tb-card { background: #fff; border-radius: min(3.2vw, 15.36px); padding: min(5vw, 24px) min(3vw, 14.4px); text-align: center; cursor: pointer; box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05); }
+.tb-icon { font-size: min(8vw, 38.4px); display: block; margin-bottom: min(2vw, 9.6px); }
+.tb-card-title { font-size: min(4.5vw, 21.6px); font-weight: 600; color: #2c3e50; display: block; margin-bottom: min(1.3vw, 6.24px); }
+.tb-card-desc { font-size: min(3.2vw, 15.36px); color: #95a5a6; }

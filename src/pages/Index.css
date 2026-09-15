@@ -1,23 +1,61 @@
 .index-container {
-  padding: 4vw;
+  padding: min(4vw, 19.2px);
   background-color: #f8f9fa;
   min-height: 100vh;
-  padding-bottom: 16vw;
+  padding-bottom: min(16vw, 76.8px);
 }
 
-.header { margin-bottom: 4vw; }
+.header { margin-bottom: min(4vw, 19.2px); }
+
+.project-intro {
+  margin-bottom: min(5.3vw, 25.44px);
+  padding: min(5vw, 24px);
+  color: #fff;
+  border-radius: min(4vw, 19.2px);
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 min(1.5vw, 7.2px) min(4vw, 19.2px) rgba(102, 126, 234, 0.2);
+}
+
+.project-intro-badge {
+  display: inline-block;
+  padding: min(1vw, 4.8px) min(2.6vw, 12.48px);
+  margin-bottom: min(2.6vw, 12.48px);
+  border-radius: min(5vw, 24px);
+  background: rgba(255, 255, 255, 0.18);
+  font-size: min(3.2vw, 15.36px);
+}
+
+.project-intro h1 { font-size: min(5.1vw, 24.48px); line-height: 1.35; margin-bottom: min(2vw, 9.6px); }
+.project-intro p { font-size: min(3.4vw, 16.32px); line-height: 1.7; opacity: 0.9; }
+.project-intro-steps { display: flex; justify-content: space-between; gap: min(1.5vw, 7.2px); margin-top: min(3.5vw, 16.8px); }
+.project-intro-steps span { display: flex; align-items: center; gap: min(1vw, 4.8px); font-size: min(3.1vw, 14.88px); white-space: nowrap; }
+.project-intro-steps b { display: inline-grid; place-items: center; width: min(5vw, 24px); height: min(5vw, 24px); border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+.demo-notice {
+  display: flex;
+  flex-direction: column;
+  gap: min(1vw, 4.8px);
+  margin: calc(-1 * min(1vw, 4.8px)) 0 min(4vw, 19.2px);
+  padding: min(3vw, 14.4px) min(3.5vw, 16.8px);
+  border: 1px solid #ffe0b2;
+  border-radius: min(2.6vw, 12.48px);
+  color: #8a5a16;
+  background: #fff9ef;
+  font-size: min(3.2vw, 15.36px);
+  line-height: 1.55;
+}
 
 .title {
-  font-size: 6.9vw;
+  font-size: min(6.9vw, 33.12px);
   font-weight: bold;
   color: #2c3e50;
   display: block;
 }
 
 .subtitle {
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #7f8c8d;
-  margin-top: 1.3vw;
+  margin-top: min(1.3vw, 6.24px);
   display: block;
 }
 
@@ -25,10 +63,10 @@
   display: flex;
   flex-wrap: wrap;
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 4vw 2.6vw;
-  margin-bottom: 5.3vw;
-  gap: 2.6vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(4vw, 19.2px) min(2.6vw, 12.48px);
+  margin-bottom: min(5.3vw, 25.44px);
+  gap: min(2.6vw, 12.48px);
 }
 
 .category-item {
@@ -36,7 +74,7 @@
   flex-direction: column;
   align-items: center;
   width: 15%;
-  min-width: 13vw;
+  min-width: min(13vw, 62.4px);
   opacity: 0.6;
   cursor: pointer;
 }
@@ -50,51 +88,51 @@
   font-weight: 500;
 }
 
-.category-icon { font-size: 5.3vw; margin-bottom: 1vw; }
-.category-text { font-size: 3.2vw; color: #2c3e50; }
+.category-icon { font-size: min(5.3vw, 25.44px); margin-bottom: min(1vw, 4.8px); }
+.category-text { font-size: min(3.2vw, 15.36px); color: #2c3e50; }
 
 .section-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4vw;
+  margin-bottom: min(4vw, 19.2px);
 }
 
 .section-title-text {
-  font-size: 4.8vw;
+  font-size: min(4.8vw, 23.04px);
   font-weight: 600;
   color: #2c3e50;
 }
 
 .section-title-more {
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #e67e22;
-  padding: 1.3vw 2.6vw;
+  padding: min(1.3vw, 6.24px) min(2.6vw, 12.48px);
   background: #fff3e0;
-  border-radius: 5.3vw;
+  border-radius: min(5.3vw, 25.44px);
   cursor: pointer;
 }
 
 .card {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 4vw;
-  margin-bottom: 4vw;
-  box-shadow: 0 0.5vw 2.6vw rgba(0,0,0,0.05);
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(4vw, 19.2px);
+  margin-bottom: min(4vw, 19.2px);
+  box-shadow: 0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05);
 }
 
 .card-header {
   display: flex;
   align-items: center;
-  margin-bottom: 2.6vw;
+  margin-bottom: min(2.6vw, 12.48px);
   position: relative;
 }
 
 .avatar {
-  width: 12vw;
-  height: 12vw;
+  width: min(12vw, 57.6px);
+  height: min(12vw, 57.6px);
   border-radius: 50%;
-  margin-right: 2.6vw;
+  margin-right: min(2.6vw, 12.48px);
   background: #ecf0f1;
   object-fit: cover;
 }
@@ -102,22 +140,22 @@
 .user-info { flex: 1; }
 
 .nickname {
-  font-size: 4.8vw;
+  font-size: min(4.8vw, 23.04px);
   font-weight: 600;
   color: #2c3e50;
   display: block;
 }
 
 .match-rate {
-  font-size: 3.4vw;
+  font-size: min(3.4vw, 16.32px);
   color: #e67e22;
   display: block;
 }
 
 .category-tag {
-  padding: 0.8vw 2.6vw;
-  border-radius: 4vw;
-  font-size: 3.2vw;
+  padding: min(0.8vw, 3.84px) min(2.6vw, 12.48px);
+  border-radius: min(4vw, 19.2px);
+  font-size: min(3.2vw, 15.36px);
   color: #fff;
   position: absolute;
   right: 0;
@@ -129,23 +167,24 @@
 .category-tag.game { background: #9b59b6; }
 .category-tag.food { background: #e67e22; }
 .category-tag.other { background: #95a5a6; }
+.category-tag.contest { background: #f39c12; }
 
 .card-body {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 4vw;
-  padding: 1.3vw 0;
-  min-height: 13vw;
+  margin-bottom: min(4vw, 19.2px);
+  padding: min(1.3vw, 6.24px) 0;
+  min-height: min(13vw, 62.4px);
 }
 
 .tag {
   background: #f0f3f4;
-  padding: 1.6vw 3.7vw;
-  border-radius: 5.3vw;
-  font-size: 3.4vw;
+  padding: min(1.6vw, 7.68px) min(3.7vw, 17.76px);
+  border-radius: min(5.3vw, 25.44px);
+  font-size: min(3.4vw, 16.32px);
   color: #2c3e50;
-  margin-right: 2.6vw;
-  margin-bottom: 2.6vw;
+  margin-right: min(2.6vw, 12.48px);
+  margin-bottom: min(2.6vw, 12.48px);
   white-space: nowrap;
 }
 
@@ -153,15 +192,15 @@
   display: flex;
   justify-content: space-around;
   border-top: 1px solid #ecf0f1;
-  padding-top: 4vw;
+  padding-top: min(4vw, 19.2px);
 }
 
 .btn {
-  width: 35vw;
-  height: 9.3vw;
+  width: min(35vw, 168px);
+  height: min(9.3vw, 44.64px);
   border: none;
-  border-radius: 4.6vw;
-  font-size: 3.7vw;
+  border-radius: min(4.6vw, 22.08px);
+  font-size: min(3.7vw, 17.76px);
   font-weight: 500;
   color: #fff;
 }
@@ -173,7 +212,7 @@
 
 .activity-list {
   background: #fff;
-  border-radius: 3.2vw;
+  border-radius: min(3.2vw, 15.36px);
   overflow: hidden;
 }
 
@@ -181,7 +220,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4vw;
+  padding: min(4vw, 19.2px);
   border-bottom: 1px solid #ecf0f1;
 }
 
@@ -189,22 +228,22 @@
 .activity-info { flex: 1; }
 
 .activity-title {
-  font-size: 4.2vw;
+  font-size: min(4.2vw, 20.16px);
   font-weight: 500;
   color: #2c3e50;
   display: block;
-  margin-bottom: 1vw;
+  margin-bottom: min(1vw, 4.8px);
 }
 
 .activity-meta {
-  font-size: 3.2vw;
+  font-size: min(3.2vw, 15.36px);
   color: #95a5a6;
 }
 
 .activity-tag {
-  padding: 1vw 3.2vw;
+  padding: min(1vw, 4.8px) min(3.2vw, 15.36px);
   background: #fff3e0;
   color: #e67e22;
-  border-radius: 4vw;
-  font-size: 3.2vw;
+  border-radius: min(4vw, 19.2px);
+  font-size: min(3.2vw, 15.36px);
 }

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createInvite, fetchDemands } from '../utils/supabase';
 import { useAuth } from '../context/AuthContext';
-import { getCreditLevelInfo } from '../utils/creditUtils';
 import { useToast } from '../components/Toast';
 import './StudyPartner.css';
 
@@ -34,6 +33,10 @@ export default function StudyPartner() {
   }
 
   async function handleInvite(partner) {
+    if (partner.is_demo) {
+      showToast('这是示例内容，发布真实需求后即可邀请', 'none');
+      return;
+    }
     if (partner.user_id === user?.id) {
       showToast('这是你自己发布的学习需求', 'none');
       return;
@@ -69,11 +72,9 @@ export default function StudyPartner() {
         ))}
       </div>
 
-      <div className="sp-section-title">⭐ 真实学习搭子</div>
+      <div className="sp-section-title">⭐ 学习搭子</div>
       <div className="sp-list">
-        {studyPartners.map((p) => {
-          const level = getCreditLevelInfo(80);
-          return (
+        {studyPartners.map((p) => (
             <div key={p.id} className="sp-card">
               <div className="sp-card-hd">
                 <img className="sp-avatar" src={p.avatar} alt="" />
@@ -81,7 +82,7 @@ export default function StudyPartner() {
                   <span className="sp-nickname">{p.nickname}</span>
                   <span className="sp-study-type">{p.title || p.category_name}</span>
                 </div>
-                <span className="sp-match">真实发布</span>
+                <span className="sp-match">{p.is_demo ? '示例内容' : '公开发布'}</span>
               </div>
               <div className="sp-tags">
                 {(p.tags || []).slice(0, 2).map((tag) => <span key={tag} className="sp-tag">📌 {tag}</span>)}
@@ -91,15 +92,14 @@ export default function StudyPartner() {
               </div>
               <div className="sp-card-footer">
                 <div className="sp-credit-wrap">
-                  <span className="sp-credit" style={{ color: level.color }}>信用80 · {level.badge}</span>
-                  <span className="sp-reason">💡 来自真实用户发布</span>
+                  <span className="sp-credit">{p.is_demo ? '功能演示' : '校园用户'}</span>
+                  <span className="sp-reason">💡 {p.is_demo ? '用于展示学习搭子流程' : '来自校园用户公开发布'}</span>
                 </div>
-                <button className="sp-invite-btn" onClick={() => handleInvite(p)}>约TA</button>
+                <button className="sp-invite-btn" disabled={p.is_demo} onClick={() => handleInvite(p)}>{p.is_demo ? '示例' : '约TA'}</button>
               </div>
             </div>
-          );
-        })}
-        {studyPartners.length === 0 && <div className="sp-empty">暂无真实学习搭子，去发布一个学习需求吧</div>}
+        ))}
+        {studyPartners.length === 0 && <div className="sp-empty">暂无学习搭子，去发布一个学习需求吧</div>}
       </div>
     </div>
   );

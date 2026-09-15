@@ -1,19 +1,14 @@
 import storageService from './storageService';
 import { creditRules, getCreditLevel } from '../mock/credit';
 
-const KEY = 'creditData';
+const KEY = 'creditData_v2';
 
 function defaultCredit() {
   return {
-    score: 92,
-    logs: [
-      { type: 'positive', reason: '完成一次学习搭子约定', score: 3, time: '2026-05-20' },
-      { type: 'positive', reason: '获得搭子好评', score: 2, time: '2026-05-19' },
-      { type: 'positive', reason: '发布真实有效的组队信息', score: 2, time: '2026-05-18' },
-      { type: 'negative', reason: '取消预约过晚', score: -3, time: '2026-05-17' },
-    ],
+    score: 80,
+    logs: [],
     dimensions: creditRules.dimensions,
-    rankPercent: 86,
+    rankPercent: null,
   };
 }
 

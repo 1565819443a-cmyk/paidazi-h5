@@ -1,42 +1,42 @@
 .publish-container {
-  padding: 4vw;
+  padding: min(4vw, 19.2px);
   background: #f8f9fa;
   min-height: 100vh;
-  padding-bottom: 16vw;
+  padding-bottom: min(16vw, 76.8px);
 }
 
-.publish-header { margin-bottom: 5.3vw; }
+.publish-header { margin-bottom: min(5.3vw, 25.44px); }
 
 .publish-title {
-  font-size: 6.4vw;
+  font-size: min(6.4vw, 30.72px);
   font-weight: bold;
   color: #2c3e50;
 }
 
 .form {
   background: #fff;
-  border-radius: 3.2vw;
-  padding: 5.3vw;
+  border-radius: min(3.2vw, 15.36px);
+  padding: min(5.3vw, 25.44px);
 }
 
-.form-item { margin-bottom: 5.3vw; }
+.form-item { margin-bottom: min(5.3vw, 25.44px); }
 
 .label {
-  font-size: 4.2vw;
+  font-size: min(4.2vw, 20.16px);
   color: #2c3e50;
   font-weight: 500;
   display: block;
-  margin-bottom: 2.6vw;
+  margin-bottom: min(2.6vw, 12.48px);
 }
 
 .picker {
   width: 100%;
-  height: 10.6vw;
+  height: min(10.6vw, 50.88px);
   border: 1px solid #ecf0f1;
-  border-radius: 2vw;
-  padding: 0 2.6vw;
+  border-radius: min(2vw, 9.6px);
+  padding: 0 min(2.6vw, 12.48px);
   color: #333;
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   background: #fff;
   outline: none;
   cursor: pointer;
@@ -44,35 +44,43 @@
 
 .input {
   width: 100%;
-  height: 10.6vw;
+  height: min(10.6vw, 50.88px);
   border: 1px solid #ecf0f1;
-  border-radius: 2vw;
-  padding: 0 2.6vw;
-  font-size: 3.7vw;
+  border-radius: min(2vw, 9.6px);
+  padding: 0 min(2.6vw, 12.48px);
+  font-size: min(3.7vw, 17.76px);
   outline: none;
 }
 
 .textarea {
   width: 100%;
-  height: 26vw;
+  height: min(26vw, 124.8px);
   border: 1px solid #ecf0f1;
-  border-radius: 2vw;
-  padding: 2.6vw;
-  font-size: 3.7vw;
+  border-radius: min(2vw, 9.6px);
+  padding: min(2.6vw, 12.48px);
+  font-size: min(3.7vw, 17.76px);
   outline: none;
   resize: vertical;
 }
 
+.privacy-hint {
+  display: block;
+  margin-top: min(1.5vw, 7.2px);
+  color: #9a6b24;
+  font-size: min(3vw, 14.4px);
+  line-height: 1.5;
+}
+
 .submit-btn {
   width: 100%;
-  height: 12vw;
+  height: min(12vw, 57.6px);
   background: #e67e22;
   color: #fff;
-  font-size: 4.2vw;
-  border-radius: 6vw;
+  font-size: min(4.2vw, 20.16px);
+  border-radius: min(6vw, 28.8px);
   border: none;
   cursor: pointer;
-  margin-top: 8vw;
+  margin-top: min(8vw, 38.4px);
 }
 
 .submit-btn:active { background: #d35400; }

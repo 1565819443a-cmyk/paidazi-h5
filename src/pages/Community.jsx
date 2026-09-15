@@ -92,6 +92,11 @@ export default function Community() {
   }
 
   async function handleLike(id) {
+    const post = allPosts.find((item) => item.id === id);
+    if (post?.is_demo) {
+      showToast('示例内容暂不支持点赞', 'none');
+      return;
+    }
     try {
       const likes = await likePost(id);
       const updated = allPosts.map((p) =>
@@ -107,6 +112,10 @@ export default function Community() {
 
   function handleComment(id) {
     const post = allPosts.find((p) => p.id === id);
+    if (post?.is_demo) {
+      showToast('示例内容暂不支持评论', 'none');
+      return;
+    }
     if (post && post.category === 'info') {
       showToast('资讯暂不支持评论', 'none');
       return;
@@ -136,6 +145,11 @@ export default function Community() {
 
   async function handleBookmark(id, e) {
     e.stopPropagation();
+    const post = allPosts.find((item) => item.id === id);
+    if (post?.is_demo) {
+      showToast('示例内容暂不支持收藏', 'none');
+      return;
+    }
     try {
       const added = await toggleBookmark(id);
       setBookmarkIds((prev) => added ? [id, ...prev] : prev.filter((item) => item !== id));
@@ -150,6 +164,8 @@ export default function Community() {
     const title = `${post.nickname}：${(post.content || '').substring(0, 20)}...`;
     share(title, `/comment?postId=${post.id}`);
   }
+
+  const demoItem = allPosts.find((item) => item.is_demo);
 
   return (
     <div className="community-container">
@@ -172,45 +188,52 @@ export default function Community() {
         ))}
       </div>
 
-      <div style={{ padding: '0 1vw 4vw' }}>
+      {demoItem && (
+        <div className="community-demo-notice">
+          <b>当前展示示例内容</b>
+          <span>{demoItem.demo_reason === 'offline' ? '数据服务暂时无法连接，恢复后会自动显示真实动态。' : '社区还没有公开动态，欢迎发布第一条内容。'}</span>
+        </div>
+      )}
+
+      <div style={{ padding: '0 min(1vw, 4.8px) min(4vw, 19.2px)' }}>
         <div
           onClick={handleAiSummary}
           style={{
             background: 'linear-gradient(135deg, #667eea, #764ba2)',
-            borderRadius: '3.2vw',
-            padding: '3vw 4vw',
+            borderRadius: 'min(3.2vw, 15.36px)',
+            padding: 'min(3vw, 14.4px) min(4vw, 19.2px)',
             color: '#fff',
             display: 'flex',
             alignItems: 'center',
             cursor: 'pointer',
           }}
         >
-          <span style={{ fontSize: '5.3vw', marginRight: '3vw' }}>🤖</span>
+          <span style={{ fontSize: 'min(5.3vw, 25.44px)', marginRight: 'min(3vw, 14.4px)' }}>🤖</span>
           <div style={{ flex: 1 }}>
-            <span style={{ fontSize: '4.2vw', fontWeight: 600, display: 'block' }}>AI 社区管家</span>
-            <span style={{ fontSize: '3.2vw', opacity: 0.8 }}>点击查看今日热门话题和推荐</span>
+            <span style={{ fontSize: 'min(4.2vw, 20.16px)', fontWeight: 600, display: 'block' }}>AI 社区管家</span>
+            <span style={{ fontSize: 'min(3.2vw, 15.36px)', opacity: 0.8 }}>点击查看今日热门话题和推荐</span>
           </div>
-          <span style={{ fontSize: '4vw' }}>›</span>
+          <span style={{ fontSize: 'min(4vw, 19.2px)' }}>›</span>
         </div>
 
         {aiSummary && (
           <div style={{
             background: '#fff',
-            borderRadius: '3.2vw',
-            padding: '4vw',
-            marginTop: '3vw',
+            borderRadius: 'min(3.2vw, 15.36px)',
+            padding: 'min(4vw, 19.2px)',
+            marginTop: 'min(3vw, 14.4px)',
             border: '1px solid #e8d5f5',
-            fontSize: '3.7vw',
+            fontSize: 'min(3.7vw, 17.76px)',
             color: '#2c3e50',
             lineHeight: 1.8,
             whiteSpace: 'pre-wrap',
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2vw' }}>
-              <span style={{ fontSize: '4.2vw', fontWeight: 600, color: '#764ba2' }}>📊 AI 社区分析</span>
-              <span style={{ fontSize: '3.2vw', color: '#999', cursor: 'pointer' }} onClick={() => setAiSummary('')}>✕</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'min(2vw, 9.6px)' }}>
+              <span style={{ fontSize: 'min(4.2vw, 20.16px)', fontWeight: 600, color: '#764ba2' }}>📊 AI 社区分析</span>
+              <span style={{ fontSize: 'min(3.2vw, 15.36px)', color: '#999', cursor: 'pointer' }} onClick={() => setAiSummary('')}>✕</span>
             </div>
             {aiLoading ? (
-              <div style={{ textAlign: 'center', padding: '3vw', color: '#999' }}>AI正在分析社区内容...</div>
+              <div style={{ textAlign: 'center', padding: 'min(3vw, 14.4px)', color: '#999' }}>AI正在分析社区内容...</div>
             ) : (
               aiSummary
             )}
@@ -229,6 +252,7 @@ export default function Community() {
 
         {displayPosts.map((item) => (
           <div key={item.id} className="post-item" onClick={() => {
+            if (item.is_demo) { showToast('这是功能示例，发布真实内容后即可互动', 'none'); return; }
             if (item.category === 'info') return;
             navigate(`/comment?postId=${item.id}`);
           }}>
@@ -238,7 +262,7 @@ export default function Community() {
                 <span className="post-nickname">{item.nickname}</span>
                 <span className="post-time">{item.time}</span>
               </div>
-              <div className={`post-cat ${item.category}`}>{item.categoryName}</div>
+              <div className={`post-cat ${item.category}`}>{item.is_demo ? `示例 · ${item.categoryName}` : item.categoryName}</div>
             </div>
 
             <div className="post-content">

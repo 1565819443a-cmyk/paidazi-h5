@@ -22,7 +22,7 @@ export default function Toolbox() {
 
       <div className="tb-grid">
         {tools.map((t) => (
-          <div key={t.to} className="tb-card" onClick={() => navigate(t.to)} style={{ borderTop: `1vw solid ${t.color}` }}>
+          <div key={t.to} className="tb-card" onClick={() => navigate(t.to)} style={{ borderTop: `min(1vw, 4.8px) solid ${t.color}` }}>
             <span className="tb-icon">{t.icon}</span>
             <span className="tb-card-title">{t.title}</span>
             <span className="tb-card-desc">{t.desc}</span>

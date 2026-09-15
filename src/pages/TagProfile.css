@@ -1,16 +1,16 @@
-.tp-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 16vw; }
-.tp-header { margin-bottom: 4vw; cursor: pointer; }
-.tp-back { font-size: 3.7vw; color: #e67e22; }
-.tp-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
-.tp-subtitle { font-size: 3.7vw; color: #7f8c8d; display: block; margin-top: 1vw; }
-.tp-hint { background: #fff3e0; color: #e67e22; padding: 3vw 4vw; border-radius: 3.2vw; font-size: 3.7vw; margin-bottom: 4vw; text-align: center; }
-.tp-basic { background: #fff; border-radius: 3.2vw; padding: 4vw; margin-bottom: 4vw; display: flex; flex-direction: column; gap: 3vw; }
-.tp-field { display: flex; flex-direction: column; gap: 1vw; }
-.tp-field label { font-size: 3.7vw; color: #7f8c8d; }
-.tp-field input, .tp-field select { height: 10.6vw; border: 1px solid #ecf0f1; border-radius: 2vw; padding: 0 3vw; font-size: 3.7vw; outline: none; background: #fff; }
-.tp-category { margin-bottom: 4vw; }
-.tp-cat-title { font-size: 4.2vw; font-weight: 600; color: #2c3e50; margin-bottom: 2.6vw; }
-.tp-tags { display: flex; flex-wrap: wrap; gap: 2vw; }
-.tp-tag { padding: 1.6vw 3.7vw; border-radius: 5.3vw; font-size: 3.4vw; background: #fff; color: #7f8c8d; cursor: pointer; border: 1px solid #ecf0f1; }
+.tp-container { padding: min(4vw, 19.2px); background: #f8f9fa; min-height: 100vh; padding-bottom: min(16vw, 76.8px); }
+.tp-header { margin-bottom: min(4vw, 19.2px); cursor: pointer; }
+.tp-back { font-size: min(3.7vw, 17.76px); color: #e67e22; }
+.tp-title { font-size: min(6.4vw, 30.72px); font-weight: bold; color: #2c3e50; display: block; margin-top: min(1.3vw, 6.24px); }
+.tp-subtitle { font-size: min(3.7vw, 17.76px); color: #7f8c8d; display: block; margin-top: min(1vw, 4.8px); }
+.tp-hint { background: #fff3e0; color: #e67e22; padding: min(3vw, 14.4px) min(4vw, 19.2px); border-radius: min(3.2vw, 15.36px); font-size: min(3.7vw, 17.76px); margin-bottom: min(4vw, 19.2px); text-align: center; }
+.tp-basic { background: #fff; border-radius: min(3.2vw, 15.36px); padding: min(4vw, 19.2px); margin-bottom: min(4vw, 19.2px); display: flex; flex-direction: column; gap: min(3vw, 14.4px); }
+.tp-field { display: flex; flex-direction: column; gap: min(1vw, 4.8px); }
+.tp-field label { font-size: min(3.7vw, 17.76px); color: #7f8c8d; }
+.tp-field input, .tp-field select { height: min(10.6vw, 50.88px); border: 1px solid #ecf0f1; border-radius: min(2vw, 9.6px); padding: 0 min(3vw, 14.4px); font-size: min(3.7vw, 17.76px); outline: none; background: #fff; }
+.tp-category { margin-bottom: min(4vw, 19.2px); }
+.tp-cat-title { font-size: min(4.2vw, 20.16px); font-weight: 600; color: #2c3e50; margin-bottom: min(2.6vw, 12.48px); }
+.tp-tags { display: flex; flex-wrap: wrap; gap: min(2vw, 9.6px); }
+.tp-tag { padding: min(1.6vw, 7.68px) min(3.7vw, 17.76px); border-radius: min(5.3vw, 25.44px); font-size: min(3.4vw, 16.32px); background: #fff; color: #7f8c8d; cursor: pointer; border: 1px solid #ecf0f1; }
 .tp-tag.selected { background: #e67e22; color: #fff; border-color: #e67e22; }
-.tp-save-btn { width: 100%; padding: 3.7vw; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; border-radius: 3.2vw; font-size: 4.5vw; cursor: pointer; margin-top: 2vw; }
+.tp-save-btn { width: 100%; padding: min(3.7vw, 17.76px); background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; border-radius: min(3.2vw, 15.36px); font-size: min(4.5vw, 21.6px); cursor: pointer; margin-top: min(2vw, 9.6px); }

@@ -58,7 +58,7 @@ export default function Index() {
   }
 
   function calcMatch(demandP, userP) {
-    if (!userP || !userP.q1) return 70;
+    if (!userP || !userP.q1) return null;
     let score = 0, total = 0;
     if (demandP.q1 === userP.q1) score += 40;
     else if (Math.abs(demandP.q1.charCodeAt() - userP.q1.charCodeAt()) === 1) score += 20;
@@ -92,6 +92,10 @@ export default function Index() {
   }
 
   function handleInvite(item) {
+    if (item.is_demo) {
+      showToast('这是示例内容，发布真实需求后即可体验邀请', 'none');
+      return;
+    }
     if (item.user_id === user?.id) {
       showToast('这是你自己发布的搭子需求', 'none');
       return;
@@ -141,12 +145,25 @@ export default function Index() {
     share(title, `/index?shareId=${demand.id}`);
   }
 
+  const demoItem = allDemands.find((item) => item.is_demo);
+
   return (
     <div className="index-container">
       <div className="header">
         <span className="title">π 搭子</span>
         <span className="subtitle">无限可能的社交连接</span>
       </div>
+
+      <section className="project-intro">
+        <span className="project-intro-badge">星火杯参赛作品</span>
+        <h1>面向西电校园的搭子匹配与互助平台</h1>
+        <p>从发布需求、智能推荐到发起邀请，让学习、竞赛、运动和校园生活更容易找到同行者。</p>
+        <div className="project-intro-steps">
+          <span><b>1</b> 发布需求</span>
+          <span><b>2</b> 智能匹配</span>
+          <span><b>3</b> 沟通组队</span>
+        </div>
+      </section>
 
       <div className="categories">
         {categories.map((cat) => (
@@ -159,7 +176,7 @@ export default function Index() {
 
       <div className="section-title">
         <span className="section-title-text">⭐ 智能推荐搭子</span>
-        <div style={{ display: 'flex', gap: '3vw' }}>
+        <div style={{ display: 'flex', gap: 'min(3vw, 14.4px)' }}>
           <span className="section-title-more" onClick={handleAiRecommend} style={{ color: '#764ba2' }}>
             🤖 AI推荐
           </span>
@@ -167,24 +184,31 @@ export default function Index() {
         </div>
       </div>
 
+      {demoItem && (
+        <div className="demo-notice">
+          <b>当前展示示例内容</b>
+          <span>{demoItem.demo_reason === 'offline' ? '数据服务暂时无法连接，恢复后会自动显示真实发布。' : '社区还没有公开内容，发布后即可参与真实匹配。'}</span>
+        </div>
+      )}
+
       {showAiResult && (
         <div className="ai-recommend-card" style={{
           background: 'linear-gradient(135deg, #f5f0ff, #fef5ff)',
-          borderRadius: '3.2vw',
-          padding: '4vw',
-          marginBottom: '4vw',
+          borderRadius: 'min(3.2vw, 15.36px)',
+          padding: 'min(4vw, 19.2px)',
+          marginBottom: 'min(4vw, 19.2px)',
           border: '1px solid #e8d5f5',
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2vw' }}>
-            <span style={{ fontSize: '4.2vw', fontWeight: 600, color: '#764ba2' }}>🤖 AI 智能分析</span>
-            <span style={{ fontSize: '3.2vw', color: '#999', cursor: 'pointer' }} onClick={() => setShowAiResult(false)}>✕</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'min(2vw, 9.6px)' }}>
+            <span style={{ fontSize: 'min(4.2vw, 20.16px)', fontWeight: 600, color: '#764ba2' }}>🤖 AI 智能分析</span>
+            <span style={{ fontSize: 'min(3.2vw, 15.36px)', color: '#999', cursor: 'pointer' }} onClick={() => setShowAiResult(false)}>✕</span>
           </div>
           {aiLoading ? (
-            <div style={{ textAlign: 'center', padding: '4vw', color: '#999' }}>
-              <span style={{ fontSize: '3.7vw' }}>AI正在分析你的性格和搭子匹配度...</span>
+            <div style={{ textAlign: 'center', padding: 'min(4vw, 19.2px)', color: '#999' }}>
+              <span style={{ fontSize: 'min(3.7vw, 17.76px)' }}>AI正在分析你的性格和搭子匹配度...</span>
             </div>
           ) : (
-            <div style={{ fontSize: '3.7vw', color: '#2c3e50', lineHeight: 1.8, whiteSpace: 'pre-wrap' }}>
+            <div style={{ fontSize: 'min(3.7vw, 17.76px)', color: '#2c3e50', lineHeight: 1.8, whiteSpace: 'pre-wrap' }}>
               {aiRecommend}
             </div>
           )}
@@ -204,7 +228,9 @@ export default function Index() {
               <img className="avatar" src={item.avatar} alt="" />
               <div className="user-info">
                 <span className="nickname">{item.nickname}</span>
-                <span className="match-rate">匹配度 {item.matchRate}%</span>
+                <span className="match-rate">
+                  {item.is_demo ? '示例内容' : item.matchRate ? `匹配度 ${item.matchRate}%` : '完成画像后可匹配'}
+                </span>
               </div>
               <div className={`category-tag ${item.category}`}>{item.categoryName || item.category_name}</div>
             </div>
@@ -223,7 +249,7 @@ export default function Index() {
         <span className="section-title-text">🧩 功能入口</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2.6vw', marginBottom: '5vw' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'min(2.6vw, 12.48px)', marginBottom: 'min(5vw, 24px)' }}>
         {[
           { icon: '🏆', label: '竞赛组队', to: '/team-hall', color: '#3498db' },
           { icon: '📚', label: '学习搭子', to: '/study-partner', color: '#2ecc71' },
@@ -232,9 +258,9 @@ export default function Index() {
           { icon: '🍜', label: '食堂推荐', to: '/canteen', color: '#e67e22' },
           { icon: '💬', label: '聊天', to: '/chat-list', color: '#764ba2' },
         ].map((item) => (
-          <div key={item.to} onClick={() => navigate(item.to)} style={{ background: '#fff', borderRadius: '3.2vw', padding: '3vw 2vw', textAlign: 'center', cursor: 'pointer', boxShadow: '0 0.5vw 2.6vw rgba(0,0,0,0.05)' }}>
-            <span style={{ fontSize: '6vw', display: 'block', marginBottom: '1vw' }}>{item.icon}</span>
-            <span style={{ fontSize: '3.4vw', color: '#2c3e50', fontWeight: 500 }}>{item.label}</span>
+          <div key={item.to} onClick={() => navigate(item.to)} style={{ background: '#fff', borderRadius: 'min(3.2vw, 15.36px)', padding: 'min(3vw, 14.4px) min(2vw, 9.6px)', textAlign: 'center', cursor: 'pointer', boxShadow: '0 min(0.5vw, 2.4px) min(2.6vw, 12.48px) rgba(0,0,0,0.05)' }}>
+            <span style={{ fontSize: 'min(6vw, 28.8px)', display: 'block', marginBottom: 'min(1vw, 4.8px)' }}>{item.icon}</span>
+            <span style={{ fontSize: 'min(3.4vw, 16.32px)', color: '#2c3e50', fontWeight: 500 }}>{item.label}</span>
           </div>
         ))}
       </div>
@@ -250,7 +276,7 @@ export default function Index() {
               <span className="activity-title">{act.title || (act.tags || []).join('、') || act.category_name}</span>
               <span className="activity-meta">{act.nickname} · {act.category_name}</span>
             </div>
-            <div className="activity-tag">真实发布</div>
+            <div className="activity-tag">{act.is_demo ? '示例' : '公开发布'}</div>
           </div>
         ))}
         {allDemands.length === 0 && (

@@ -102,10 +102,9 @@ export default function AiChat() {
     <div className="aichat-container">
       <div className="aichat-header">
         <span className="aichat-title">🤖 AI 聊天搭子 · 小π</span>
-        <span className="aichat-subtitle">
-          你的校园AI伙伴
-          <button className="aichat-clear" onClick={clearHistory} title="清除对话记录">🗑️</button>
-        </span>
+        <span className="aichat-subtitle">你的校园AI伙伴</span>
+        <span className="aichat-privacy">对话仅保存在本次浏览会话，请勿输入敏感信息</span>
+        <button className="aichat-clear" onClick={clearHistory} aria-label="清除对话记录" title="清除对话记录">清空</button>
       </div>
 
       <div className="aichat-messages">

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { fetchStats } from '../utils/supabase';
 import { useAuth } from '../context/AuthContext';
 import creditService from '../services/creditService';
-import { getCreditLevelInfo } from '../utils/creditUtils';
 import { useToast } from '../components/Toast';
 import Modal from '../components/Modal';
 import './Profile.css';
@@ -18,7 +17,7 @@ export default function Profile() {
   const [editName, setEditName] = useState(profile?.nickname || 'π星人');
   const [editAvatar, setEditAvatar] = useState(profile?.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg');
   const [personality, setPersonality] = useState(null);
-  const [creditData, setCreditData] = useState(() => creditService.getData());
+  const [creditData] = useState(() => creditService.getData());
 
   useEffect(() => {
     loadStats();
@@ -94,8 +93,8 @@ export default function Profile() {
           <span className="user-nickname">{profile?.nickname || 'π星人'}</span>
           <span className="profile-phone">{user?.email || user?.phone || '免登录访客'}</span>
           <div className="credit-badge">
-            <span className="credit-score">信用分 {creditData.score}</span>
-            <span className="credit-rate">{getCreditLevelInfo(creditData.score).level}</span>
+            <span className="credit-score">信用体验分 {creditData.score}</span>
+            <span className="credit-rate">机制演示</span>
           </div>
         </div>
         <button className="edit-btn" onClick={openEdit}>编辑资料</button>
@@ -128,7 +127,7 @@ export default function Profile() {
           <span className="menu-icon">🏷️</span><span className="menu-text">个人标签画像</span><span className="menu-arrow">›</span>
         </div>
         <div className="menu-item" onClick={() => navigate('/credit-center')}>
-          <span className="menu-icon">📊</span><span className="menu-text">信用中心</span><span className="menu-arrow">›</span>
+          <span className="menu-icon">📊</span><span className="menu-text">信用机制演示</span><span className="menu-arrow">›</span>
         </div>
         <div className="menu-item" onClick={() => navigate('/my-posts')}>
           <span className="menu-icon">🏆</span><span className="menu-text">我的组队</span><span className="menu-arrow">›</span>
@@ -153,19 +152,19 @@ export default function Profile() {
           confirmText="保存"
           content={
             <div>
-              <div style={{ marginBottom: '3vw' }}>
-                <span style={{ fontSize: '3.7vw', color: '#7f8c8d', display: 'block', marginBottom: '1.3vw' }}>昵称</span>
+              <div style={{ marginBottom: 'min(3vw, 14.4px)' }}>
+                <span style={{ fontSize: 'min(3.7vw, 17.76px)', color: '#7f8c8d', display: 'block', marginBottom: 'min(1.3vw, 6.24px)' }}>昵称</span>
                 <input
-                  style={{ width: '100%', height: '10vw', border: '1px solid #ecf0f1', borderRadius: '2vw', padding: '0 3vw', fontSize: '4vw', outline: 'none' }}
+                  style={{ width: '100%', height: 'min(10vw, 48px)', border: '1px solid #ecf0f1', borderRadius: 'min(2vw, 9.6px)', padding: '0 min(3vw, 14.4px)', fontSize: 'min(4vw, 19.2px)', outline: 'none' }}
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                   placeholder="输入昵称"
                 />
               </div>
               <div>
-                <span style={{ fontSize: '3.7vw', color: '#7f8c8d', display: 'block', marginBottom: '1.3vw' }}>头像链接</span>
+                <span style={{ fontSize: 'min(3.7vw, 17.76px)', color: '#7f8c8d', display: 'block', marginBottom: 'min(1.3vw, 6.24px)' }}>头像链接</span>
                 <input
-                  style={{ width: '100%', height: '10vw', border: '1px solid #ecf0f1', borderRadius: '2vw', padding: '0 3vw', fontSize: '4vw', outline: 'none' }}
+                  style={{ width: '100%', height: 'min(10vw, 48px)', border: '1px solid #ecf0f1', borderRadius: 'min(2vw, 9.6px)', padding: '0 min(3vw, 14.4px)', fontSize: 'min(4vw, 19.2px)', outline: 'none' }}
                   value={editAvatar}
                   onChange={(e) => setEditAvatar(e.target.value)}
                   placeholder="粘贴图片链接"

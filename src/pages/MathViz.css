@@ -1,12 +1,12 @@
-.mv-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
-.mv-header { margin-bottom: 4vw; cursor: pointer; }
-.mv-back { font-size: 3.7vw; color: #e67e22; }
-.mv-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
-.mv-funcs { display: flex; flex-wrap: wrap; gap: 2vw; margin-bottom: 4vw; }
-.mv-func { padding: 1.6vw 3.7vw; border-radius: 5.3vw; font-size: 3.4vw; color: #7f8c8d; background: #fff; cursor: pointer; }
+.mv-container { padding: min(4vw, 19.2px); background: #f8f9fa; min-height: 100vh; padding-bottom: min(12vw, 57.6px); }
+.mv-header { margin-bottom: min(4vw, 19.2px); cursor: pointer; }
+.mv-back { font-size: min(3.7vw, 17.76px); color: #e67e22; }
+.mv-title { font-size: min(6.4vw, 30.72px); font-weight: bold; color: #2c3e50; display: block; margin-top: min(1.3vw, 6.24px); }
+.mv-funcs { display: flex; flex-wrap: wrap; gap: min(2vw, 9.6px); margin-bottom: min(4vw, 19.2px); }
+.mv-func { padding: min(1.6vw, 7.68px) min(3.7vw, 17.76px); border-radius: min(5.3vw, 25.44px); font-size: min(3.4vw, 16.32px); color: #7f8c8d; background: #fff; cursor: pointer; }
 .mv-func.active { background: #3498db; color: #fff; }
-.mv-canvas-wrap { background: #fff; border-radius: 3.2vw; padding: 2vw; margin-bottom: 4vw; display: flex; justify-content: center; overflow-x: auto; }
+.mv-canvas-wrap { background: #fff; border-radius: min(3.2vw, 15.36px); padding: min(2vw, 9.6px); margin-bottom: min(4vw, 19.2px); display: flex; justify-content: center; overflow-x: auto; }
 .mv-canvas { max-width: 100%; }
-.mv-info { background: #fff; border-radius: 3.2vw; padding: 4vw; }
-.mv-expr { font-size: 5.3vw; color: #2c3e50; display: block; margin-bottom: 2vw; font-family: 'Georgia', serif; }
-.mv-desc { font-size: 3.7vw; color: #7f8c8d; }
+.mv-info { background: #fff; border-radius: min(3.2vw, 15.36px); padding: min(4vw, 19.2px); }
+.mv-expr { font-size: min(5.3vw, 25.44px); color: #2c3e50; display: block; margin-bottom: min(2vw, 9.6px); font-family: 'Georgia', serif; }
+.mv-desc { font-size: min(3.7vw, 17.76px); color: #7f8c8d; }

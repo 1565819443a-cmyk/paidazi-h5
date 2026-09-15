@@ -10,9 +10,9 @@
 
 .sharesheet-box {
   background: #fff;
-  border-radius: 3.2vw 3.2vw 0 0;
+  border-radius: min(3.2vw, 15.36px) min(3.2vw, 15.36px) 0 0;
   width: 100%;
-  padding: 5vw 4vw 4vw;
+  padding: min(5vw, 24px) min(4vw, 19.2px) min(4vw, 19.2px);
   animation: slideUp 0.3s ease;
 }
 
@@ -22,39 +22,39 @@
 }
 
 .sharesheet-title {
-  font-size: 3.7vw;
+  font-size: min(3.7vw, 17.76px);
   color: #95a5a6;
   text-align: center;
-  margin-bottom: 4vw;
+  margin-bottom: min(4vw, 19.2px);
 }
 
 .sharesheet-grid {
   display: flex;
   justify-content: center;
-  gap: 10vw;
-  margin-bottom: 5vw;
+  gap: min(10vw, 48px);
+  margin-bottom: min(5vw, 24px);
 }
 
 .sharesheet-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2vw;
-  font-size: 3vw;
+  gap: min(2vw, 9.6px);
+  font-size: min(3vw, 14.4px);
   color: #2c3e50;
   cursor: pointer;
 }
 
 .sharesheet-icon {
-  font-size: 8vw;
+  font-size: min(8vw, 38.4px);
 }
 
 .sharesheet-cancel {
   width: 100%;
-  height: 11vw;
+  height: min(11vw, 52.8px);
   border: none;
   background: #ecf0f1;
-  border-radius: 5vw;
-  font-size: 3.7vw;
+  border-radius: min(5vw, 24px);
+  font-size: min(3.7vw, 17.76px);
   cursor: pointer;
 }

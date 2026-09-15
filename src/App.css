@@ -6,17 +6,27 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
+html, body {
   height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  background: #e9edf2;
+  color: #2c3e50;
+}
+
+#root {
+  min-height: 100%;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
   background: #f8f9fa;
   color: #2c3e50;
+  box-shadow: 0 0 32px rgba(31, 46, 61, 0.08);
 }
 
 .page-content {
   min-height: 100vh;
-  padding-bottom: 16vw;
+  padding-bottom: min(16vw, 76.8px);
 }
 
 .auth-loading {
@@ -24,7 +34,7 @@ html, body, #root {
   display: grid;
   place-items: center;
   color: #6d7f78;
-  font-size: 4vw;
+  font-size: min(4vw, 19.2px);
 }
 
 button {
@@ -34,4 +44,19 @@ button {
 
 input, textarea {
   font-family: inherit;
+}
+
+@media (min-width: 481px) {
+  .tab-bar,
+  .comment-input-area {
+    width: 480px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .sharesheet-box {
+    max-width: 480px;
+    margin: 0 auto;
+  }
 }

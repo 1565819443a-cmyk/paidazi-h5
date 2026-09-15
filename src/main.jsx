@@ -6,6 +6,11 @@ import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './components/Toast';
 import './App.css';
 
+const legacyHashPath = window.location.hash.match(/^#(\/.*)$/)?.[1];
+if (legacyHashPath) {
+  window.history.replaceState(null, '', legacyHashPath);
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

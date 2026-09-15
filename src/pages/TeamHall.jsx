@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createDemand, createInvite, fetchDemands } from '../utils/supabase';
 import { useAuth } from '../context/AuthContext';
-import { getCreditLevelInfo } from '../utils/creditUtils';
 import { useToast } from '../components/Toast';
 import './TeamHall.css';
 
@@ -38,15 +37,17 @@ export default function TeamHall() {
       skills,
       deadline: deadlineTag?.replace('截止：', '') || '未指定',
       captain: item.nickname,
-      captainCredit: 80,
-      captainBadge: '真实用户',
-      matchScore: 70,
-      reason: '来自真实用户发布',
+      captainBadge: item.is_demo ? '示例内容' : '公开发布',
+      reason: item.is_demo ? '用于展示竞赛组队流程' : '来自校园用户公开发布',
       description: item.contact ? `联系方式：${item.contact}` : item.title,
     };
   }
 
   async function handleApply(team) {
+    if (team.is_demo) {
+      showToast('这是示例队伍，发布真实需求后即可申请', 'none');
+      return;
+    }
     if (team.user_id === user?.id) {
       showToast('这是你自己发布的组队需求', 'none');
       return;
@@ -66,20 +67,24 @@ export default function TeamHall() {
 
   async function handlePublish() {
     if (!form.name.trim() || !form.track.trim()) { showToast('请填写竞赛名称和赛道'); return; }
-    const roles = form.missingRoles.split(/[,，]/).map((item) => item.trim()).filter(Boolean);
-    const skills = form.skills.split(/[,，]/).map((item) => item.trim()).filter(Boolean);
-    await createDemand({
-      category: 'contest',
-      categoryName: '竞赛',
-      title: form.name,
-      contact: form.desc,
-      tags: [form.track, ...roles.map((role) => `缺：${role}`), ...skills, form.deadline ? `截止：${form.deadline}` : ''].filter(Boolean),
-      personalityAnswers: {},
-    });
-    await loadTeams();
-    setShowForm(false);
-    setForm({ name: '', track: '', maxMembers: 4, missingRoles: '', skills: '', deadline: '', desc: '' });
-    showToast('发布成功', 'success');
+    try {
+      const roles = form.missingRoles.split(/[,，]/).map((item) => item.trim()).filter(Boolean);
+      const skills = form.skills.split(/[,，]/).map((item) => item.trim()).filter(Boolean);
+      await createDemand({
+        category: 'contest',
+        categoryName: '竞赛',
+        title: form.name,
+        contact: form.desc,
+        tags: [form.track, ...roles.map((role) => `缺：${role}`), ...skills, form.deadline ? `截止：${form.deadline}` : ''].filter(Boolean),
+        personalityAnswers: {},
+      });
+      await loadTeams();
+      setShowForm(false);
+      setForm({ name: '', track: '', maxMembers: 4, missingRoles: '', skills: '', deadline: '', desc: '' });
+      showToast('发布成功', 'success');
+    } catch {
+      showToast('发布失败，请稍后重试');
+    }
   }
 
   return (
@@ -101,16 +106,14 @@ export default function TeamHall() {
           <input className="th-input" placeholder="队伍人数上限" type="number" value={form.maxMembers} onChange={(e) => setForm({ ...form, maxMembers: +e.target.value })} />
           <input className="th-input" placeholder="缺少角色（逗号分隔：前端,后端,算法）" value={form.missingRoles} onChange={(e) => setForm({ ...form, missingRoles: e.target.value })} />
           <input className="th-input" placeholder="技能要求（逗号分隔）" value={form.skills} onChange={(e) => setForm({ ...form, skills: e.target.value })} />
-          <input className="th-input" placeholder="截止时间" type="date" value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} />
+          <input className="th-input" placeholder="截止时间" type="date" min={new Date().toISOString().slice(0, 10)} value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} />
           <textarea className="th-textarea" placeholder="备注说明" value={form.desc} onChange={(e) => setForm({ ...form, desc: e.target.value })} />
           <button className="th-submit-btn" onClick={handlePublish}>发布组队</button>
         </div>
       )}
 
       <div className="th-list">
-        {teams.map((t) => {
-          const level = getCreditLevelInfo(t.captainCredit);
-          return (
+        {teams.map((t) => (
             <div key={t.id} className="th-card">
               <div className="th-card-hd">
                 <span className="th-card-name">{t.name}</span>
@@ -129,17 +132,15 @@ export default function TeamHall() {
               <div className="th-card-footer">
                 <div className="th-captain">
                   <span>{t.captain}</span>
-                  <span className="th-credit" style={{ color: level.color }}>信用{t.captainCredit} · {t.captainBadge || level.badge}</span>
+                  <span className="th-credit">{t.captainBadge}</span>
                 </div>
                 <div className="th-card-actions">
-                  <span className="th-match">匹配 {t.matchScore}%</span>
-                  <button className="th-apply-btn" onClick={() => handleApply(t)}>申请加入</button>
+                  <button className="th-apply-btn" disabled={t.is_demo} onClick={() => handleApply(t)}>{t.is_demo ? '示例' : '申请加入'}</button>
                 </div>
               </div>
               <div className="th-reason">💡 {t.reason}</div>
             </div>
-          );
-        })}
+        ))}
         {teams.length === 0 && <div className="th-empty">暂无组队信息，发布一个吧！</div>}
       </div>
     </div>

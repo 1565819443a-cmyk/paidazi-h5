@@ -60,7 +60,7 @@ export default function ChatList() {
                 <div className="cl-info">
                   <div className="cl-info-hd">
                     <span className="cl-name">{isSent ? item.to_user : item.from_nickname}</span>
-                    <span className="cl-credit-badge" style={{ fontSize: '2.6vw', background: '#e8f5e9', color: '#2f8f6f', padding: '0.3vw 1.3vw', borderRadius: '3vw' }}>
+                    <span className="cl-credit-badge" style={{ fontSize: 'min(2.6vw, 12.48px)', background: '#e8f5e9', color: '#2f8f6f', padding: 'min(0.3vw, 1.44px) min(1.3vw, 6.24px)', borderRadius: 'min(3vw, 14.4px)' }}>
                       {item.status === 'pending' ? '待处理' : '已处理'}
                     </span>
                   </div>

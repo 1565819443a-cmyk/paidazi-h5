@@ -1,14 +1,14 @@
-.tr-container { padding: 4vw; background: #f8f9fa; min-height: 100vh; padding-bottom: 12vw; }
-.tr-header { margin-bottom: 4vw; cursor: pointer; }
-.tr-back { font-size: 3.7vw; color: #e67e22; }
-.tr-title { font-size: 6.4vw; font-weight: bold; color: #2c3e50; display: block; margin-top: 1.3vw; }
-.tr-modes { display: flex; gap: 2vw; margin-bottom: 4vw; }
-.tr-mode { padding: 2vw 3.7vw; border-radius: 5.3vw; font-size: 3.4vw; background: #fff; color: #7f8c8d; cursor: pointer; }
+.tr-container { padding: min(4vw, 19.2px); background: #f8f9fa; min-height: 100vh; padding-bottom: min(12vw, 57.6px); }
+.tr-header { margin-bottom: min(4vw, 19.2px); cursor: pointer; }
+.tr-back { font-size: min(3.7vw, 17.76px); color: #e67e22; }
+.tr-title { font-size: min(6.4vw, 30.72px); font-weight: bold; color: #2c3e50; display: block; margin-top: min(1.3vw, 6.24px); }
+.tr-modes { display: flex; gap: min(2vw, 9.6px); margin-bottom: min(4vw, 19.2px); }
+.tr-mode { padding: min(2vw, 9.6px) min(3.7vw, 17.76px); border-radius: min(5.3vw, 25.44px); font-size: min(3.4vw, 16.32px); background: #fff; color: #7f8c8d; cursor: pointer; }
 .tr-mode.active { background: #2ecc71; color: #fff; }
-.tr-textarea { width: 100%; height: 26vw; border: 1px solid #ecf0f1; border-radius: 3.2vw; padding: 3vw; font-size: 3.7vw; outline: none; resize: none; margin-bottom: 3vw; }
-.tr-btn { width: 100%; padding: 3vw; background: #2ecc71; color: #fff; border: none; border-radius: 3.2vw; font-size: 4vw; cursor: pointer; margin-bottom: 4vw; }
-.tr-output { background: #fff; border-radius: 3.2vw; padding: 4vw; margin-bottom: 4vw; }
-.tr-output-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2vw; font-size: 4.2vw; font-weight: 600; color: #2c3e50; }
-.tr-copy { background: none; border: none; font-size: 4.2vw; cursor: pointer; }
-.tr-output-text { font-size: 3.7vw; color: #2c3e50; line-height: 1.8; }
-.tr-notice { text-align: center; padding: 3vw; font-size: 3.2vw; color: #f39c12; background: #fff; border-radius: 3.2vw; }
+.tr-textarea { width: 100%; height: min(26vw, 124.8px); border: 1px solid #ecf0f1; border-radius: min(3.2vw, 15.36px); padding: min(3vw, 14.4px); font-size: min(3.7vw, 17.76px); outline: none; resize: none; margin-bottom: min(3vw, 14.4px); }
+.tr-btn { width: 100%; padding: min(3vw, 14.4px); background: #2ecc71; color: #fff; border: none; border-radius: min(3.2vw, 15.36px); font-size: min(4vw, 19.2px); cursor: pointer; margin-bottom: min(4vw, 19.2px); }
+.tr-output { background: #fff; border-radius: min(3.2vw, 15.36px); padding: min(4vw, 19.2px); margin-bottom: min(4vw, 19.2px); }
+.tr-output-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: min(2vw, 9.6px); font-size: min(4.2vw, 20.16px); font-weight: 600; color: #2c3e50; }
+.tr-copy { background: none; border: none; font-size: min(4.2vw, 20.16px); cursor: pointer; }
+.tr-output-text { font-size: min(3.7vw, 17.76px); color: #2c3e50; line-height: 1.8; }
+.tr-notice { text-align: center; padding: min(3vw, 14.4px); font-size: min(3.2vw, 15.36px); color: #f39c12; background: #fff; border-radius: min(3.2vw, 15.36px); }
