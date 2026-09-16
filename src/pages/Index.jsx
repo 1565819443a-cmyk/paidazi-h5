@@ -96,6 +96,10 @@ export default function Index() {
       showToast('这是示例内容，发布真实需求后即可体验邀请', 'none');
       return;
     }
+    if (item.is_local) {
+      showToast('这是当前浏览器保存的需求，数据恢复后可重新公开发布', 'none');
+      return;
+    }
     if (item.user_id === user?.id) {
       showToast('这是你自己发布的搭子需求', 'none');
       return;
@@ -146,6 +150,7 @@ export default function Index() {
   }
 
   const demoItem = allDemands.find((item) => item.is_demo);
+  const localItem = allDemands.find((item) => item.is_local);
 
   return (
     <div className="index-container">
@@ -190,6 +195,12 @@ export default function Index() {
           <span>{demoItem.demo_reason === 'offline' ? '数据服务暂时无法连接，恢复后会自动显示真实发布。' : '社区还没有公开内容，发布后即可参与真实匹配。'}</span>
         </div>
       )}
+      {!demoItem && localItem && (
+        <div className="demo-notice">
+          <b>当前包含本机保存内容</b>
+          <span>数据服务暂时不可用，这些内容只保存在当前浏览器，恢复后可重新公开发布。</span>
+        </div>
+      )}
 
       {showAiResult && (
         <div className="ai-recommend-card" style={{
@@ -229,7 +240,7 @@ export default function Index() {
               <div className="user-info">
                 <span className="nickname">{item.nickname}</span>
                 <span className="match-rate">
-                  {item.is_demo ? '示例内容' : item.matchRate ? `匹配度 ${item.matchRate}%` : '完成画像后可匹配'}
+                  {item.is_demo ? '示例内容' : item.is_local ? '本机保存' : item.matchRate ? `匹配度 ${item.matchRate}%` : '完成画像后可匹配'}
                 </span>
               </div>
               <div className={`category-tag ${item.category}`}>{item.categoryName || item.category_name}</div>
@@ -276,7 +287,7 @@ export default function Index() {
               <span className="activity-title">{act.title || (act.tags || []).join('、') || act.category_name}</span>
               <span className="activity-meta">{act.nickname} · {act.category_name}</span>
             </div>
-            <div className="activity-tag">{act.is_demo ? '示例' : '公开发布'}</div>
+            <div className="activity-tag">{act.is_demo ? '示例' : act.is_local ? '本机保存' : '公开发布'}</div>
           </div>
         ))}
         {allDemands.length === 0 && (

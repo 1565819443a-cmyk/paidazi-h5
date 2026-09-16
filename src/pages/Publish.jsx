@@ -47,11 +47,12 @@ export default function Publish() {
 
     try {
       const typeName = types[typeValues.indexOf(selectedType)];
+      let result;
 
       if (selectedType === 'partner') {
         const personality = profile?.personality_answers?.q1 ? profile.personality_answers : (getStorageSync('personality') || {});
         const category = categoryMap.partner.find((item) => item.value === selectedCategory);
-        await createDemand({
+        result = await createDemand({
           category: selectedCategory,
           categoryName: category?.label || selectedCategory,
           title,
@@ -63,7 +64,7 @@ export default function Publish() {
         const fullContent = price
           ? `💰 ${price}元\n${content}`
           : content;
-        await createPost({
+        result = await createPost({
           category: selectedType,
           categoryName: typeName,
           title,
@@ -72,7 +73,7 @@ export default function Publish() {
         });
       }
 
-      showToast('发布成功', 'success');
+      showToast(result?.is_local ? '数据服务暂不可用，已保存到本机' : '发布成功', result?.is_local ? 'none' : 'success');
 
       setTimeout(() => {
         navigate('/index');

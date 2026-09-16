@@ -37,6 +37,10 @@ export default function StudyPartner() {
       showToast('这是示例内容，发布真实需求后即可邀请', 'none');
       return;
     }
+    if (partner.is_local) {
+      showToast('这是当前浏览器保存的需求，数据恢复后可重新公开发布', 'none');
+      return;
+    }
     if (partner.user_id === user?.id) {
       showToast('这是你自己发布的学习需求', 'none');
       return;
@@ -82,7 +86,7 @@ export default function StudyPartner() {
                   <span className="sp-nickname">{p.nickname}</span>
                   <span className="sp-study-type">{p.title || p.category_name}</span>
                 </div>
-                <span className="sp-match">{p.is_demo ? '示例内容' : '公开发布'}</span>
+                <span className="sp-match">{p.is_demo ? '示例内容' : p.is_local ? '本机保存' : '公开发布'}</span>
               </div>
               <div className="sp-tags">
                 {(p.tags || []).slice(0, 2).map((tag) => <span key={tag} className="sp-tag">📌 {tag}</span>)}
@@ -92,8 +96,8 @@ export default function StudyPartner() {
               </div>
               <div className="sp-card-footer">
                 <div className="sp-credit-wrap">
-                  <span className="sp-credit">{p.is_demo ? '功能演示' : '校园用户'}</span>
-                  <span className="sp-reason">💡 {p.is_demo ? '用于展示学习搭子流程' : '来自校园用户公开发布'}</span>
+                  <span className="sp-credit">{p.is_demo ? '功能演示' : p.is_local ? '当前浏览器' : '校园用户'}</span>
+                  <span className="sp-reason">💡 {p.is_demo ? '用于展示学习搭子流程' : p.is_local ? '数据恢复后可重新公开发布' : '来自校园用户公开发布'}</span>
                 </div>
                 <button className="sp-invite-btn" disabled={p.is_demo} onClick={() => handleInvite(p)}>{p.is_demo ? '示例' : '约TA'}</button>
               </div>

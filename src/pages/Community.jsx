@@ -262,7 +262,7 @@ export default function Community() {
                 <span className="post-nickname">{item.nickname}</span>
                 <span className="post-time">{item.time}</span>
               </div>
-              <div className={`post-cat ${item.category}`}>{item.is_demo ? `示例 · ${item.categoryName}` : item.categoryName}</div>
+              <div className={`post-cat ${item.category}`}>{item.is_demo ? `示例 · ${item.categoryName}` : item.is_local ? `本机 · ${item.categoryName}` : item.categoryName}</div>
             </div>
 
             <div className="post-content">

@@ -37,8 +37,8 @@ export default function TeamHall() {
       skills,
       deadline: deadlineTag?.replace('截止：', '') || '未指定',
       captain: item.nickname,
-      captainBadge: item.is_demo ? '示例内容' : '公开发布',
-      reason: item.is_demo ? '用于展示竞赛组队流程' : '来自校园用户公开发布',
+      captainBadge: item.is_demo ? '示例内容' : item.is_local ? '本机保存' : '公开发布',
+      reason: item.is_demo ? '用于展示竞赛组队流程' : item.is_local ? '数据恢复后可重新公开发布' : '来自校园用户公开发布',
       description: item.contact ? `联系方式：${item.contact}` : item.title,
     };
   }
@@ -46,6 +46,10 @@ export default function TeamHall() {
   async function handleApply(team) {
     if (team.is_demo) {
       showToast('这是示例队伍，发布真实需求后即可申请', 'none');
+      return;
+    }
+    if (team.is_local) {
+      showToast('这是当前浏览器保存的队伍，数据恢复后可重新公开发布', 'none');
       return;
     }
     if (team.user_id === user?.id) {

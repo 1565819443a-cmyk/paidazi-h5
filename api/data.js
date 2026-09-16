@@ -1,3 +1,5 @@
+/* global process */
+
 const TABLES = {
   posts: 'community_posts',
   comments: 'comments',
@@ -27,7 +29,7 @@ export default async function handler(req, res) {
     const response = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
       ...options,
       headers: { ...headers, ...(options.headers || {}) },
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(4000),
     });
     const text = await response.text();
     const data = text ? JSON.parse(text) : null;
