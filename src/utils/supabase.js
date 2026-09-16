@@ -1,23 +1,16 @@
-import { createClient } from '@supabase/supabase-js';
 import { demoDemands, demoPosts } from '../mock/demoData';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('请在 .env 文件中配置 VITE_SUPABASE_URL 和 VITE_SUPABASE_ANON_KEY');
+async function callData(action, payload = {}) {
+  const response = await fetch('/api/data', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, payload }),
+    signal: AbortSignal.timeout(12000),
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error || '数据服务暂时不可用');
+  return result.data;
 }
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-const TABLES = {
-  profiles: 'real_profiles',
-  posts: 'community_posts',
-  comments: 'comments',
-  demands: 'demands',
-  invites: 'invites',
-  bookmarks: 'real_bookmarks',
-};
 
 const GUEST_PROFILE_KEY = 'paidazi_guest_profile';
 const GUEST_BOOKMARKS_KEY = 'paidazi_guest_bookmarks';
@@ -77,26 +70,7 @@ export async function getCurrentUser() {
 }
 
 export async function ensureProfile(user) {
-  if (!user) return null;
-
-  const { data, error } = await supabase
-    .from(TABLES.profiles)
-    .select('*')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (error) throw error;
-  if (data) return data;
-
-  const profile = makeDefaultProfile(user);
-  const { data: created, error: createError } = await supabase
-    .from(TABLES.profiles)
-    .insert(profile)
-    .select('*')
-    .single();
-
-  if (createError) throw createError;
-  return created;
+  return user ? makeDefaultProfile(user) : null;
 }
 
 export async function getCurrentProfile() {
@@ -112,32 +86,18 @@ export async function updateCurrentProfile(updates) {
 }
 
 export async function fetchPosts() {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 6000);
   try {
-    const { data, error } = await supabase
-      .from(TABLES.posts)
-      .select('*')
-      .abortSignal(controller.signal)
-      .order('created_at', { ascending: false });
-    if (error) throw error;
+    const data = await callData('listPosts');
     if (!data?.length) return demoPosts.map((item) => normalizePost({ ...item, demo_reason: 'empty' }));
     return data.map(normalizePost);
   } catch (error) {
     console.warn('实时社区暂不可用，已切换到示例内容。', error);
     return demoPosts.map((item) => normalizePost({ ...item, demo_reason: 'offline' }));
-  } finally {
-    clearTimeout(timeoutId);
   }
 }
 
 export async function fetchPost(postId) {
-  const { data, error } = await supabase
-    .from(TABLES.posts)
-    .select('*')
-    .eq('id', postId)
-    .maybeSingle();
-  if (error) throw error;
+  const data = await callData('getPost', { id: postId });
   return data ? normalizePost(data) : data;
 }
 
@@ -145,9 +105,7 @@ export async function createPost(post) {
   const profile = getGuestProfile();
   const content = [post.title, post.content, post.contact ? `联系方式：${post.contact}` : ''].filter(Boolean).join('\n');
 
-  const { data, error } = await supabase
-    .from(TABLES.posts)
-    .insert({
+  return callData('createPost', {
       id: `post_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`,
       category: post.category,
       category_name: post.categoryName,
@@ -158,126 +116,73 @@ export async function createPost(post) {
       comments_count: 0,
       url: post.url || null,
       link_text: post.linkText || null,
-    })
-    .select('*')
-    .single();
-
-  if (error) throw error;
-  return data;
+  });
 }
 
 export async function likePost(postId) {
-  const { data, error } = await supabase.rpc('increment_likes', { post_id: postId });
-  if (error) throw error;
-  return data;
+  return callData('likePost', { id: postId });
 }
 
 export async function fetchComments(postId) {
-  const { data, error } = await supabase
-    .from(TABLES.comments)
-    .select('*')
-    .eq('post_id', postId)
-    .is('parent_id', null)
-    .order('created_at', { ascending: false });
-  if (error) throw error;
+  const data = await callData('listComments', { postId });
   return data || [];
 }
 
 export async function fetchReplies(commentId) {
-  const { data, error } = await supabase
-    .from(TABLES.comments)
-    .select('*')
-    .eq('parent_id', commentId)
-    .order('created_at', { ascending: true });
-  if (error) throw error;
+  const data = await callData('listReplies', { commentId });
   return data || [];
 }
 
 export async function createComment(comment) {
   const profile = getGuestProfile();
 
-  const { data, error } = await supabase
-    .from(TABLES.comments)
-    .insert({
+  return callData('createComment', { comment: {
       post_id: comment.postId,
       parent_id: comment.parentId || null,
       nickname: profile.nickname,
       avatar: profile.avatar,
       content: comment.content,
       to_nickname: comment.toNickname || null,
-    })
-    .select('*')
-    .single();
-
-  if (error) throw error;
-  await supabase.rpc('increment_comments_count', { post_id: comment.postId });
-  return data;
+  } });
 }
 
 export async function fetchDemands() {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 6000);
   try {
-    const { data, error } = await supabase
-      .from(TABLES.demands)
-      .select('*')
-      .abortSignal(controller.signal)
-      .order('created_at', { ascending: false });
-    if (error) throw error;
+    const data = await callData('listDemands');
     if (!data?.length) return demoDemands.map((item) => normalizeDemand({ ...item, demo_reason: 'empty' }));
     return data.map(normalizeDemand);
   } catch (error) {
     console.warn('实时搭子数据暂不可用，已切换到示例内容。', error);
     return demoDemands.map((item) => normalizeDemand({ ...item, demo_reason: 'offline' }));
-  } finally {
-    clearTimeout(timeoutId);
   }
 }
 
 export async function createDemand(demand) {
   const profile = getGuestProfile();
 
-  const { data, error } = await supabase
-    .from(TABLES.demands)
-    .insert({
+  return callData('createDemand', {
       category: demand.category,
       category_name: demand.categoryName,
       nickname: profile.nickname,
       avatar: profile.avatar,
       tags: [demand.title, ...(demand.tags || []), demand.contact ? `联系方式：${demand.contact}` : ''].filter(Boolean),
       personality_answers: demand.personalityAnswers || {},
-    })
-    .select('*')
-    .single();
-
-  if (error) throw error;
-  return data;
+  });
 }
 
 export async function createInvite(invite) {
   const profile = getGuestProfile();
 
-  const { data, error } = await supabase
-    .from(TABLES.invites)
-    .insert({
+  return callData('createInvite', {
       to_user: invite.toUser,
       demand_id: invite.demandId,
       status: 'pending',
       content: `${profile.nickname}：${invite.content || '邀请你一起学习'}`,
-    })
-    .select('*')
-    .single();
-
-  if (error) throw error;
-  return data;
+  });
 }
 
 export async function fetchInvites() {
-  const { data, error } = await supabase
-    .from(TABLES.invites)
-    .select('*')
-    .order('created_at', { ascending: false });
-  if (error) throw error;
+  const data = await callData('listInvites');
   return data || [];
 }
 
@@ -290,75 +195,27 @@ export async function fetchStats() {
 }
 
 export async function fetchBookmarkIds() {
-  const user = await getCurrentUser();
-  if (!user) {
-    try {
-      return JSON.parse(localStorage.getItem(GUEST_BOOKMARKS_KEY) || '[]');
-    } catch {
-      return [];
-    }
+  try {
+    return JSON.parse(localStorage.getItem(GUEST_BOOKMARKS_KEY) || '[]');
+  } catch {
+    return [];
   }
-
-  const { data, error } = await supabase
-    .from(TABLES.bookmarks)
-    .select('post_id')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data || []).map((item) => item.post_id);
 }
 
 export async function toggleBookmark(postId) {
-  const user = await getCurrentUser();
-  if (!user) {
-    const ids = await fetchBookmarkIds();
-    const nextIds = ids.includes(postId) ? ids.filter((id) => id !== postId) : [postId, ...ids];
-    try {
-      localStorage.setItem(GUEST_BOOKMARKS_KEY, JSON.stringify(nextIds));
-    } catch {}
-    return nextIds.includes(postId);
-  }
-
-  const { data: existing, error: findError } = await supabase
-    .from(TABLES.bookmarks)
-    .select('id')
-    .eq('user_id', user.id)
-    .eq('post_id', postId)
-    .maybeSingle();
-  if (findError) throw findError;
-
-  if (existing) {
-    const { error } = await supabase.from(TABLES.bookmarks).delete().eq('id', existing.id);
-    if (error) throw error;
-    return false;
-  }
-
-  const { error } = await supabase.from(TABLES.bookmarks).insert({ user_id: user.id, post_id: postId });
-  if (error) throw error;
-  return true;
+  const ids = await fetchBookmarkIds();
+  const nextIds = ids.includes(postId) ? ids.filter((id) => id !== postId) : [postId, ...ids];
+  try {
+    localStorage.setItem(GUEST_BOOKMARKS_KEY, JSON.stringify(nextIds));
+  } catch {}
+  return nextIds.includes(postId);
 }
 
 export async function fetchBookmarkedPosts() {
-  const user = await getCurrentUser();
-  if (!user) {
-    const ids = await fetchBookmarkIds();
-    if (!ids.length) return [];
-  const { data, error } = await supabase
-    .from(TABLES.posts)
-    .select('*')
-    .in('id', ids)
-    .order('created_at', { ascending: false });
-  if (error) throw error;
+  const ids = await fetchBookmarkIds();
+  if (!ids.length) return [];
+  const data = await callData('postsByIds', { ids });
   return (data || []).map(normalizePost);
-  }
-
-  const { data, error } = await supabase
-    .from(TABLES.bookmarks)
-    .select('post:community_posts(*)')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data || []).map((item) => item.post).filter(Boolean);
 }
 
 function normalizePost(post) {
