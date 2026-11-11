@@ -39,10 +39,9 @@ begin
 end;
 $$;
 
-drop trigger if exists on_auth_user_created_create_campus_profile on auth.users;
-create trigger on_auth_user_created_create_campus_profile
+create or replace trigger on_auth_user_created_create_campus_profile
   after insert on auth.users
-  for each row execute procedure public.handle_new_campus_user();
+  for each row execute function public.handle_new_campus_user();
 
 insert into campus_profiles (id, nickname, campus_verified)
 select id, coalesce(split_part(email, '@', 1), 'π同学'), coalesce(email ~* '@((stu|mail)\.)?xidian\.edu\.cn$', false)
