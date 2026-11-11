@@ -38,7 +38,7 @@ export default function App() {
       <div className="page-content">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Navigate to="/index" replace />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/index" element={<Index />} />
           <Route path="/community" element={<Community />} />
           <Route path="/publish" element={<Publish />} />

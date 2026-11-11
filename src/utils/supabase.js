@@ -100,11 +100,12 @@ export function makeDefaultProfile(user) {
   const email = user?.email || '';
   const emailName = email.split('@')[0]?.slice(0, 12);
   const phoneTail = user?.phone ? user.phone.slice(-4) : '';
+  const metadataName = user?.user_metadata?.nickname?.trim();
   return {
     id: user?.id,
     email,
     phone: user?.phone || '',
-    nickname: emailName ? `π星人${emailName}` : phoneTail ? `π星人${phoneTail}` : 'π星人',
+    nickname: metadataName || (emailName ? `π星人${emailName}` : phoneTail ? `π星人${phoneTail}` : 'π星人'),
     avatar: 'https://randomuser.me/api/portraits/lego/1.jpg',
     tags: {},
     personality_answers: {},
@@ -133,7 +134,7 @@ export async function ensureProfile(user) {
       id: user.id,
       nickname: fallback.nickname,
       avatar: fallback.avatar,
-      campus_verified: /@((stu|mail)\.)?xidian\.edu\.cn$/i.test(user.email || ''),
+      campus_verified: Boolean(user.is_anonymous) || /@((stu|mail)\.)?xidian\.edu\.cn$/i.test(user.email || ''),
     })
     .select('*')
     .single();

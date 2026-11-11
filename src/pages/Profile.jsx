@@ -112,8 +112,8 @@ export default function Profile() {
         <img className="user-avatar" src={profile?.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg'} alt="" />
         <div className="user-info">
           <span className="user-nickname">{profile?.nickname || 'π星人'}</span>
-          <span className="profile-phone">{user?.email || user?.phone || '演示模式 · 数据仅保存在本机'}</span>
-          {user && <span className="profile-phone">{profile?.campus_verified ? '✓ 校内邮箱已验证' : '邮箱待验证'}</span>}
+          <span className="profile-phone">{user?.email || user?.phone || (user ? '免邮箱试用身份 · 当前浏览器有效' : '演示模式 · 数据仅保存在本机')}</span>
+          {user && <span className="profile-phone">{profile?.campus_verified ? '✓ 已建立站内身份' : '身份初始化中'}</span>}
           <div className="credit-badge">
             <span className="credit-score">信用体验分 {creditData.score}</span>
             <span className="credit-rate">机制演示</span>

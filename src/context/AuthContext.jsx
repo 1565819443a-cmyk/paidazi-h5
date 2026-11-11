@@ -76,19 +76,10 @@ export function AuthProvider({ children }) {
     return data;
   }, [user]);
 
-  const signIn = useCallback(async (email, password) => {
+  const enterWithNickname = useCallback(async (nickname) => {
     if (!isSupabaseConfigured) throw new Error('线上账号服务尚未配置');
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-    return data;
-  }, []);
-
-  const signUp = useCallback(async (email, password) => {
-    if (!isSupabaseConfigured) throw new Error('线上账号服务尚未配置');
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: `${window.location.origin}/login` },
+    const { data, error } = await supabase.auth.signInAnonymously({
+      options: { data: { nickname: nickname.trim() } },
     });
     if (error) throw error;
     return data;
@@ -110,10 +101,9 @@ export function AuthProvider({ children }) {
     isDemoMode: !user,
     refreshProfile,
     saveProfile,
-    signIn,
-    signUp,
+    enterWithNickname,
     signOut,
-  }), [session, user, profile, loading, refreshProfile, saveProfile, signIn, signUp, signOut]);
+  }), [session, user, profile, loading, refreshProfile, saveProfile, enterWithNickname, signOut]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

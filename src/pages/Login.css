@@ -56,6 +56,17 @@
   border-radius: 12px;
 }
 
+.login-feature-list {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f5faf8;
+  color: #456159;
+  font-size: 14px;
+}
+
 .login-tabs button {
   border: 0;
   background: transparent;

@@ -32,7 +32,8 @@ begin
   values (
     new.id,
     coalesce(nullif(new.raw_user_meta_data->>'nickname', ''), split_part(new.email, '@', 1), 'π同学'),
-    coalesce(new.email ~* '@((stu|mail)\.)?xidian\.edu\.cn$', false)
+    coalesce(new.is_anonymous, false)
+      or coalesce(new.email ~* '@((stu|mail)\.)?xidian\.edu\.cn$', false)
   )
   on conflict (id) do nothing;
   return new;
@@ -44,7 +45,9 @@ create or replace trigger on_auth_user_created_create_campus_profile
   for each row execute function public.handle_new_campus_user();
 
 insert into campus_profiles (id, nickname, campus_verified)
-select id, coalesce(split_part(email, '@', 1), 'π同学'), coalesce(email ~* '@((stu|mail)\.)?xidian\.edu\.cn$', false)
+select id,
+       coalesce(nullif(raw_user_meta_data->>'nickname', ''), split_part(email, '@', 1), 'π同学'),
+       coalesce(is_anonymous, false) or coalesce(email ~* '@((stu|mail)\.)?xidian\.edu\.cn$', false)
 from auth.users
 on conflict (id) do nothing;
 
