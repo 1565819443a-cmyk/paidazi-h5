@@ -62,3 +62,8 @@
   background: #e8f5e9;
   color: #2ecc71;
 }
+.mi-status.rejected { background: #f2f4f7; color: #667085; }
+.mi-actions { display: flex; align-items: center; gap: 8px; }
+.mi-action { border: 0; border-radius: 999px; padding: 7px 12px; font-weight: 700; }
+.mi-action.accept { background: #2f8f6f; color: #fff; }
+.mi-action.reject { background: #f2f4f7; color: #667085; }

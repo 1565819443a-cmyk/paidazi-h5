@@ -28,6 +28,7 @@ import Canteen from './pages/Canteen';
 import ChatList from './pages/ChatList';
 import ChatDetail from './pages/ChatDetail';
 import TagProfile from './pages/TagProfile';
+import Moderation from './pages/Moderation';
 
 const tabPaths = ['/index', '/community', '/publish', '/message', '/profile'];
 
@@ -65,6 +66,7 @@ export default function App() {
           <Route path="/chat-list" element={<ChatList />} />
           <Route path="/chat-detail" element={<ChatDetail />} />
           <Route path="/tag-profile" element={<TagProfile />} />
+          <Route path="/moderation" element={<Moderation />} />
         </Routes>
       </div>
       <TabBarWrapper />

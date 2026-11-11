@@ -51,7 +51,7 @@ export default function ChatList() {
           {items.map((item) => {
             const isSent = item.from_user_id === user?.id;
             return (
-              <div key={item.id} className="cl-item" onClick={() => navigate('/my-invites')}>
+              <div key={item.id} className="cl-item" onClick={() => navigate(item.status === 'accepted' || item.status === 'completed' ? `/chat-detail?id=${item.id}` : '/my-invites')}>
                 <div className="cl-avatar-wrap">
                   <div className="cl-avatar" style={{ display: 'grid', placeItems: 'center', background: '#eef8f4' }}>
                     {isSent ? '我' : 'TA'}
@@ -61,7 +61,7 @@ export default function ChatList() {
                   <div className="cl-info-hd">
                     <span className="cl-name">{isSent ? item.to_user : item.from_nickname}</span>
                     <span className="cl-credit-badge" style={{ fontSize: 'min(2.6vw, 12.48px)', background: '#e8f5e9', color: '#2f8f6f', padding: 'min(0.3vw, 1.44px) min(1.3vw, 6.24px)', borderRadius: 'min(3vw, 14.4px)' }}>
-                      {item.status === 'pending' ? '待处理' : '已处理'}
+                      {item.status === 'pending' ? '待处理' : item.status === 'accepted' ? '可聊天' : item.status === 'rejected' ? '已拒绝' : '已处理'}
                     </span>
                   </div>
                   <span className="cl-last-msg">{item.content || '邀请你一起学习'}</span>
@@ -75,7 +75,7 @@ export default function ChatList() {
         </div>
       )}
 
-      <div className="cl-tip">真实版暂不生成模拟聊天，联系记录来自你的真实邀请。</div>
+      <div className="cl-tip">邀请被接受后即可进入真实站内聊天，消息只对邀请双方可见。</div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchMyPosts } from '../utils/supabase';
+import { fetchMyPosts, updateDemandStatus } from '../utils/supabase';
 import { useToast } from '../components/Toast';
 import './MyPosts.css';
 import './Community.css';
@@ -31,6 +31,14 @@ export default function MyPosts() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function closeDemand(item) {
+    try {
+      await updateDemandStatus(item.id, 'closed');
+      setPosts((current) => current.map((post) => post.id === item.id && post.isDemand ? { ...post, status: 'closed' } : post));
+      showToast('需求已关闭，不再出现在匹配大厅', 'success');
+    } catch (error) { showToast(error.message || '关闭失败'); }
   }
 
   function formatTime(dateStr) {
@@ -68,6 +76,11 @@ export default function MyPosts() {
             <span className="post-text">{item.content}</span>
           </div>
           <div className="post-actions" onClick={(e) => e.stopPropagation()}>
+            {item.isDemand && (
+              <button className="mp-close-btn" disabled={item.status === 'closed'} onClick={() => closeDemand(item)}>
+                {item.status === 'closed' ? '已关闭' : '关闭需求'}
+              </button>
+            )}
             <div className="action-item">
               <span className="action-icon">❤️</span>
               <span className="action-text">{item.likes || 0}</span>

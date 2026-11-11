@@ -92,6 +92,11 @@ export default function Index() {
   }
 
   function handleInvite(item) {
+    if (!user) {
+      showToast('请先登录试点账号后发送邀请');
+      navigate('/login');
+      return;
+    }
     if (item.is_demo) {
       showToast('这是示例内容，发布真实需求后即可体验邀请', 'none');
       return;
@@ -122,7 +127,7 @@ export default function Index() {
       showToast('邀请已发送', 'success');
     } catch (err) {
       console.error('邀请失败:', err);
-      showToast('发送失败，请重试');
+      showToast(err.message || '发送失败，请重试');
     }
   }
 

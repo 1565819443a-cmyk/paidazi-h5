@@ -16,6 +16,10 @@ export default function Profile() {
   const [showEdit, setShowEdit] = useState(false);
   const [editName, setEditName] = useState(profile?.nickname || 'π星人');
   const [editAvatar, setEditAvatar] = useState(profile?.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg');
+  const [editCollege, setEditCollege] = useState(profile?.college || '');
+  const [editSkills, setEditSkills] = useState((profile?.skills || []).join('、'));
+  const [editInterests, setEditInterests] = useState((profile?.interests || []).join('、'));
+  const [editAvailableTime, setEditAvailableTime] = useState(profile?.available_time || '');
   const [personality, setPersonality] = useState(null);
   const [creditData] = useState(() => creditService.getData());
 
@@ -28,6 +32,10 @@ export default function Profile() {
     if (profile) {
       setEditName(profile.nickname || 'π星人');
       setEditAvatar(profile.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg');
+      setEditCollege(profile.college || '');
+      setEditSkills((profile.skills || []).join('、'));
+      setEditInterests((profile.interests || []).join('、'));
+      setEditAvailableTime(profile.available_time || '');
       if (profile.personality_answers?.q1) setPersonality(profile.personality_answers);
     }
   }, [profile]);
@@ -59,6 +67,10 @@ export default function Profile() {
   function openEdit() {
     setEditName(profile?.nickname || 'π星人');
     setEditAvatar(profile?.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg');
+    setEditCollege(profile?.college || '');
+    setEditSkills((profile?.skills || []).join('、'));
+    setEditInterests((profile?.interests || []).join('、'));
+    setEditAvailableTime(profile?.available_time || '');
     setShowEdit(true);
   }
 
@@ -70,6 +82,10 @@ export default function Profile() {
     const newProfile = {
       nickname: editName.trim(),
       avatar: editAvatar.trim() || profile?.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg',
+      college: editCollege.trim(),
+      skills: editSkills.split(/[,，、]/).map((item) => item.trim()).filter(Boolean),
+      interests: editInterests.split(/[,，、]/).map((item) => item.trim()).filter(Boolean),
+      available_time: editAvailableTime.trim(),
     };
     try {
       await saveProfile(newProfile);
@@ -81,8 +97,13 @@ export default function Profile() {
   }
 
   async function handleSignOut() {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     await signOut();
-    showToast('已重置本机访客身份', 'success');
+    showToast('已安全退出', 'success');
+    navigate('/login');
   }
 
   return (
@@ -91,7 +112,8 @@ export default function Profile() {
         <img className="user-avatar" src={profile?.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg'} alt="" />
         <div className="user-info">
           <span className="user-nickname">{profile?.nickname || 'π星人'}</span>
-          <span className="profile-phone">{user?.email || user?.phone || '免登录访客'}</span>
+          <span className="profile-phone">{user?.email || user?.phone || '演示模式 · 数据仅保存在本机'}</span>
+          {user && <span className="profile-phone">{profile?.campus_verified ? '✓ 校内邮箱已验证' : '邮箱待验证'}</span>}
           <div className="credit-badge">
             <span className="credit-score">信用体验分 {creditData.score}</span>
             <span className="credit-rate">机制演示</span>
@@ -141,8 +163,13 @@ export default function Profile() {
         <div className="menu-item" onClick={() => navigate('/personality')}>
           <span className="menu-icon">🧠</span><span className="menu-text">性格测试</span><span className="menu-arrow">›</span>
         </div>
+        {user && (
+          <div className="menu-item" onClick={() => navigate('/moderation')}>
+            <span className="menu-icon">🛡️</span><span className="menu-text">内容审核入口</span><span className="menu-arrow">›</span>
+          </div>
+        )}
         <div className="menu-item" onClick={handleSignOut}>
-          <span className="menu-icon">↩</span><span className="menu-text">重置本机身份</span><span className="menu-arrow">›</span>
+          <span className="menu-icon">↩</span><span className="menu-text">{user ? '退出登录' : '登录试点账号'}</span><span className="menu-arrow">›</span>
         </div>
       </div>
 
@@ -169,6 +196,19 @@ export default function Profile() {
                   onChange={(e) => setEditAvatar(e.target.value)}
                   placeholder="粘贴图片链接"
                 />
+              </div>
+              <div style={{ marginTop: 'min(3vw, 14.4px)' }}>
+                <span style={{ fontSize: 'min(3.7vw, 17.76px)', color: '#7f8c8d', display: 'block', marginBottom: 'min(1.3vw, 6.24px)' }}>学院</span>
+                <input style={{ width: '100%', height: 'min(10vw, 48px)', border: '1px solid #ecf0f1', borderRadius: 'min(2vw, 9.6px)', padding: '0 min(3vw, 14.4px)' }} value={editCollege} onChange={(e) => setEditCollege(e.target.value)} placeholder="例如：计算机科学与技术学院" />
+              </div>
+              <div style={{ marginTop: 'min(3vw, 14.4px)' }}>
+                <span style={{ fontSize: 'min(3.7vw, 17.76px)', color: '#7f8c8d', display: 'block', marginBottom: 'min(1.3vw, 6.24px)' }}>技能标签</span>
+                <input style={{ width: '100%', height: 'min(10vw, 48px)', border: '1px solid #ecf0f1', borderRadius: 'min(2vw, 9.6px)', padding: '0 min(3vw, 14.4px)' }} value={editSkills} onChange={(e) => setEditSkills(e.target.value)} placeholder="React、Python、PPT" />
+              </div>
+              <div style={{ marginTop: 'min(3vw, 14.4px)' }}>
+                <span style={{ fontSize: 'min(3.7vw, 17.76px)', color: '#7f8c8d', display: 'block', marginBottom: 'min(1.3vw, 6.24px)' }}>兴趣与可用时间</span>
+                <input style={{ width: '100%', height: 'min(10vw, 48px)', border: '1px solid #ecf0f1', borderRadius: 'min(2vw, 9.6px)', padding: '0 min(3vw, 14.4px)', marginBottom: '8px' }} value={editInterests} onChange={(e) => setEditInterests(e.target.value)} placeholder="竞赛、羽毛球、自习" />
+                <input style={{ width: '100%', height: 'min(10vw, 48px)', border: '1px solid #ecf0f1', borderRadius: 'min(2vw, 9.6px)', padding: '0 min(3vw, 14.4px)' }} value={editAvailableTime} onChange={(e) => setEditAvailableTime(e.target.value)} placeholder="例如：工作日晚 7 点后" />
               </div>
             </div>
           }

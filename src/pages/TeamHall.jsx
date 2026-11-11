@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createDemand, createInvite, fetchDemands } from '../utils/supabase';
+import { createDemand, createInvite, createReport, fetchDemands } from '../utils/supabase';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/Toast';
 import './TeamHall.css';
@@ -44,6 +44,7 @@ export default function TeamHall() {
   }
 
   async function handleApply(team) {
+    if (!user) { showToast('请先登录试点账号后申请'); navigate('/login'); return; }
     if (team.is_demo) {
       showToast('这是示例队伍，发布真实需求后即可申请', 'none');
       return;
@@ -69,6 +70,16 @@ export default function TeamHall() {
     }
   }
 
+  async function handleReport(team) {
+    if (!user) { showToast('请先登录试点账号后举报'); navigate('/login'); return; }
+    const reason = window.prompt('请简要说明举报原因（至少 2 个字）');
+    if (!reason?.trim() || reason.trim().length < 2) return;
+    try {
+      await createReport({ targetType: 'demand', targetId: team.id, reason: reason.trim() });
+      showToast('举报已提交，管理员会在后台处理', 'success');
+    } catch (error) { showToast(error.message || '举报提交失败'); }
+  }
+
   async function handlePublish() {
     if (!form.name.trim() || !form.track.trim()) { showToast('请填写竞赛名称和赛道'); return; }
     try {
@@ -78,8 +89,9 @@ export default function TeamHall() {
         category: 'contest',
         categoryName: '竞赛',
         title: form.name,
-        contact: form.desc,
+        description: form.desc || `${form.name} · ${form.track}`,
         tags: [form.track, ...roles.map((role) => `缺：${role}`), ...skills, form.deadline ? `截止：${form.deadline}` : ''].filter(Boolean),
+        expiresAt: form.deadline ? new Date(`${form.deadline}T23:59:59`).toISOString() : undefined,
         personalityAnswers: {},
       });
       await loadTeams();
@@ -139,6 +151,7 @@ export default function TeamHall() {
                   <span className="th-credit">{t.captainBadge}</span>
                 </div>
                 <div className="th-card-actions">
+                  {!t.is_demo && <button className="th-report-btn" onClick={() => handleReport(t)}>举报</button>}
                   <button className="th-apply-btn" disabled={t.is_demo} onClick={() => handleApply(t)}>{t.is_demo ? '示例' : '申请加入'}</button>
                 </div>
               </div>

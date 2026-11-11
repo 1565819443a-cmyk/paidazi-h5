@@ -1,5 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { getGuestProfile, resetGuestProfile, updateCurrentProfile } from '../utils/supabase';
+import {
+  ensureProfile,
+  getCurrentProfile,
+  getGuestProfile,
+  resetGuestProfile,
+  updateCurrentProfile,
+} from '../utils/supabase';
+import { isSupabaseConfigured, supabase } from '../lib/supabaseClient';
 
 const AuthContext = createContext(null);
 
@@ -10,38 +17,85 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const loadProfile = useCallback(async (activeUser) => {
-    const guestProfile = getGuestProfile();
-    setProfile(guestProfile);
-    return guestProfile;
+    const nextProfile = activeUser
+      ? await ensureProfile(activeUser)
+      : getGuestProfile();
+    setProfile(nextProfile);
+    return nextProfile;
   }, []);
 
   useEffect(() => {
     let mounted = true;
 
-    loadProfile(null).finally(() => {
+    async function initialize() {
+      if (!isSupabaseConfigured) {
+        await loadProfile(null);
+        if (mounted) setLoading(false);
+        return;
+      }
+
+      const { data } = await supabase.auth.getSession();
+      const activeSession = data.session || null;
       if (!mounted) return;
-      setSession(null);
-      setUser(null);
-      setLoading(false);
+      setSession(activeSession);
+      setUser(activeSession?.user || null);
+      await loadProfile(activeSession?.user || null);
+      if (mounted) setLoading(false);
+    }
+
+    initialize().catch(async () => {
+      await loadProfile(null);
+      if (mounted) setLoading(false);
     });
+
+    const subscription = isSupabaseConfigured
+      ? supabase.auth.onAuthStateChange((_event, nextSession) => {
+          if (!mounted) return;
+          setSession(nextSession);
+          setUser(nextSession?.user || null);
+          loadProfile(nextSession?.user || null).catch(() => setProfile(getGuestProfile()));
+        }).data.subscription
+      : null;
 
     return () => {
       mounted = false;
+      subscription?.unsubscribe();
     };
   }, [loadProfile]);
 
   const refreshProfile = useCallback(async () => {
-    if (!user) return null;
-    return loadProfile(user);
+    if (!user) return getGuestProfile();
+    const next = await getCurrentProfile();
+    setProfile(next);
+    return next;
   }, [loadProfile, user]);
 
   const saveProfile = useCallback(async (updates) => {
-    const data = await updateCurrentProfile(updates);
+    const data = await updateCurrentProfile(updates, user);
     setProfile(data);
+    return data;
+  }, [user]);
+
+  const signIn = useCallback(async (email, password) => {
+    if (!isSupabaseConfigured) throw new Error('线上账号服务尚未配置');
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    return data;
+  }, []);
+
+  const signUp = useCallback(async (email, password) => {
+    if (!isSupabaseConfigured) throw new Error('线上账号服务尚未配置');
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: `${window.location.origin}/login` },
+    });
+    if (error) throw error;
     return data;
   }, []);
 
   const signOut = useCallback(async () => {
+    if (isSupabaseConfigured) await supabase.auth.signOut();
     setSession(null);
     setUser(null);
     setProfile(resetGuestProfile());
@@ -52,10 +106,14 @@ export function AuthProvider({ children }) {
     user,
     profile,
     loading,
+    isAuthenticated: Boolean(user),
+    isDemoMode: !user,
     refreshProfile,
     saveProfile,
+    signIn,
+    signUp,
     signOut,
-  }), [session, user, profile, loading, refreshProfile, saveProfile, signOut]);
+  }), [session, user, profile, loading, refreshProfile, saveProfile, signIn, signUp, signOut]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

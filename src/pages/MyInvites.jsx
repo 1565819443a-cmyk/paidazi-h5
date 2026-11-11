@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchInvites } from '../utils/supabase';
+import { fetchInvites, updateInviteStatus } from '../utils/supabase';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../components/Toast';
 import './MyInvites.css';
 
 export default function MyInvites() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { showToast } = useToast();
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,6 +25,16 @@ export default function MyInvites() {
       setInvites([]);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function changeStatus(item, status) {
+    try {
+      await updateInviteStatus(item.id, status);
+      setInvites((current) => current.map((invite) => invite.id === item.id ? { ...invite, status } : invite));
+      showToast(status === 'accepted' ? '已接受邀请，可以开始联系搭子了' : '已拒绝邀请', 'success');
+    } catch (error) {
+      showToast(error.message || '操作失败，请重试');
     }
   }
 
@@ -55,9 +67,17 @@ export default function MyInvites() {
           <div className="mi-content">{item.content || '邀请你一起学习'}</div>
           <div className="mi-footer">
             <span className="mi-time">{formatTime(item.created_at)}</span>
-            <span className={`mi-status ${item.status}`}>
-              {item.status === 'pending' ? '待处理' : '已接受'}
-            </span>
+            <div className="mi-actions">
+              {item.status === 'pending' && item.to_user_id === user?.id && (
+                <>
+                  <button className="mi-action reject" onClick={() => changeStatus(item, 'rejected')}>拒绝</button>
+                  <button className="mi-action accept" onClick={() => changeStatus(item, 'accepted')}>接受</button>
+                </>
+              )}
+              <span className={`mi-status ${item.status}`}>
+                {item.status === 'pending' ? '待处理' : item.status === 'accepted' ? '已接受' : item.status === 'rejected' ? '已拒绝' : '已处理'}
+              </span>
+            </div>
           </div>
         </div>
       ))}

@@ -1,4 +1,5 @@
 import { demoDemands, demoPosts } from '../mock/demoData';
+import { isSupabaseConfigured, supabase } from '../lib/supabaseClient';
 
 const KEYS = {
   profile: 'paidazi_guest_profile',
@@ -7,16 +8,29 @@ const KEYS = {
   demands: 'paidazi_local_demands',
   comments: 'paidazi_local_comments',
   invites: 'paidazi_local_invites',
+  reports: 'paidazi_local_reports',
 };
 
 async function callData(action, payload = {}) {
+  let accessToken = '';
+  if (isSupabaseConfigured) {
+    const { data } = await supabase.auth.getSession();
+    accessToken = data.session?.access_token || '';
+  }
   const response = await fetch('/api/data', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+    },
     body: JSON.stringify({ action, payload }),
-    signal: AbortSignal.timeout(6000),
+    // The public Supabase route can be slow or blocked on some campus networks.
+    // Fail fast so the UI can switch to the local/demo fallback without leaving
+    // users staring at a loading state during a presentation or pilot.
+    signal: AbortSignal.timeout(2500),
   });
-  const result = await response.json();
+  const text = await response.text();
+  const result = text ? JSON.parse(text) : {};
   if (!response.ok) throw new Error(result.error || '数据服务暂时不可用');
   return result.data;
 }
@@ -97,11 +111,62 @@ export function makeDefaultProfile(user) {
   };
 }
 
-export async function getCurrentUser() { return null; }
-export async function ensureProfile(user) { return user ? makeDefaultProfile(user) : null; }
-export async function getCurrentProfile() { return getGuestProfile(); }
+export async function getCurrentUser() {
+  if (!isSupabaseConfigured) return null;
+  const { data } = await supabase.auth.getUser();
+  return data.user || null;
+}
 
-export async function updateCurrentProfile(updates) {
+export async function ensureProfile(user) {
+  if (!user || !isSupabaseConfigured) return user ? makeDefaultProfile(user) : null;
+  const { data, error } = await supabase
+    .from('campus_profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle();
+  if (!error && data) return { ...makeDefaultProfile(user), ...data, email: user.email || '' };
+
+  const fallback = makeDefaultProfile(user);
+  const { data: created, error: createError } = await supabase
+    .from('campus_profiles')
+    .upsert({
+      id: user.id,
+      nickname: fallback.nickname,
+      avatar: fallback.avatar,
+      campus_verified: /@((stu|mail)\.)?xidian\.edu\.cn$/i.test(user.email || ''),
+    })
+    .select('*')
+    .single();
+  if (createError) return fallback;
+  return { ...fallback, ...created };
+}
+
+export async function getCurrentProfile() {
+  const user = await getCurrentUser();
+  return user ? ensureProfile(user) : getGuestProfile();
+}
+
+export async function updateCurrentProfile(updates, activeUser = null) {
+  if (activeUser && isSupabaseConfigured) {
+    const allowed = {
+      nickname: updates.nickname,
+      avatar: updates.avatar,
+      college: updates.college,
+      skills: updates.skills,
+      interests: updates.interests,
+      available_time: updates.available_time,
+      updated_at: new Date().toISOString(),
+    };
+    Object.keys(allowed).forEach((key) => allowed[key] === undefined && delete allowed[key]);
+    const { data, error } = await supabase
+      .from('campus_profiles')
+      .update(allowed)
+      .eq('id', activeUser.id)
+      .select('*')
+      .single();
+    if (error) throw error;
+    return { ...makeDefaultProfile(activeUser), ...data };
+  }
   const nextProfile = { ...getGuestProfile(), ...updates };
   try {
     localStorage.setItem(KEYS.profile, JSON.stringify(nextProfile));
@@ -215,7 +280,17 @@ export async function createDemand(demand) {
     tags: [demand.title, ...(demand.tags || []), demand.contact ? `联系方式：${demand.contact}` : ''].filter(Boolean),
     personality_answers: demand.personalityAnswers || {}, created_at: new Date().toISOString(),
   };
-  try { return await callData('createDemand', item); }
+  try {
+    return await callData('createDemand', {
+      category: demand.category,
+      title: demand.title,
+      description: demand.description || demand.tags?.join('；') || demand.title,
+      tags: demand.tags || [],
+      availableTime: demand.availableTime || '',
+      meetingPlace: demand.meetingPlace || '',
+      expiresAt: demand.expiresAt || new Date(Date.now() + 30 * 86400000).toISOString(),
+    });
+  }
   catch {
     const localItem = { ...item, is_local: true };
     writeLocal(KEYS.demands, [localItem, ...readLocal(KEYS.demands)]);
@@ -224,17 +299,16 @@ export async function createDemand(demand) {
 }
 
 export async function createInvite(invite) {
+  const activeUser = await getCurrentUser();
+  if (!activeUser) throw new Error('请先登录试点账号再发送邀请');
+  if (!invite.toUserId) throw new Error('该内容是演示或本机数据，不能发送真实邀请');
   const profile = getGuestProfile();
   const item = {
-    id: createId('invite'), to_user: invite.toUser, demand_id: invite.demandId, status: 'pending',
+    id: createId('invite'), to_user: invite.toUser, to_user_id: invite.toUserId || null,
+    demand_id: invite.demandId, status: 'pending',
     content: `${profile.nickname}：${invite.content || '邀请你一起学习'}`, created_at: new Date().toISOString(),
   };
-  try { return await callData('createInvite', item); }
-  catch {
-    const localItem = { ...item, is_local: true };
-    writeLocal(KEYS.invites, [localItem, ...readLocal(KEYS.invites)]);
-    return localItem;
-  }
+  return callData('createInvite', item);
 }
 
 export async function fetchInvites() {
@@ -243,8 +317,65 @@ export async function fetchInvites() {
   catch { return local; }
 }
 
+export async function updateInviteStatus(inviteId, status) {
+  const allowed = ['accepted', 'rejected', 'cancelled', 'completed'];
+  if (!allowed.includes(status)) throw new Error('无效的邀请状态');
+  const invites = readLocal(KEYS.invites);
+  const localIndex = invites.findIndex((item) => item.id === inviteId);
+  if (localIndex >= 0) {
+    invites[localIndex] = { ...invites[localIndex], status, updated_at: new Date().toISOString() };
+    writeLocal(KEYS.invites, invites);
+    return invites[localIndex];
+  }
+  return callData('updateInviteStatus', { id: inviteId, status });
+}
+
+export async function fetchMessages(inviteId) {
+  if (!inviteId) return [];
+  return callData('listMessages', { inviteId });
+}
+
+export async function createMessage(inviteId, content) {
+  if (!inviteId || !content?.trim()) throw new Error('请输入消息内容');
+  return callData('createMessage', { inviteId, content: content.trim() });
+}
+
+export async function createReport(report) {
+  try {
+    return await callData('createReport', report);
+  } catch {
+    const item = { ...report, id: createId('report'), status: 'pending', created_at: new Date().toISOString(), is_local: true };
+    writeLocal(KEYS.reports, [item, ...readLocal(KEYS.reports)]);
+    return item;
+  }
+}
+
+export async function fetchModerationQueue() {
+  return callData('listModeration');
+}
+
+export async function moderateItem(targetType, id, status) {
+  return callData('moderateItem', { targetType, id, status });
+}
+
 export async function fetchMyPosts() {
-  return { posts: readLocal(KEYS.posts).map(normalizePost), demands: readLocal(KEYS.demands).map(normalizeDemand) };
+  const localDemands = readLocal(KEYS.demands).map(normalizeDemand);
+  let remoteDemands = [];
+  try { remoteDemands = (await callData('listMyDemands') || []).map(normalizeDemand); }
+  catch { /* Guest mode and offline mode only show local drafts. */ }
+  return { posts: readLocal(KEYS.posts).map(normalizePost), demands: [...localDemands, ...remoteDemands] };
+}
+
+export async function updateDemandStatus(id, status) {
+  if (!['open', 'matched', 'closed'].includes(status)) throw new Error('无效的需求状态');
+  const demands = readLocal(KEYS.demands);
+  const index = demands.findIndex((item) => item.id === id);
+  if (index >= 0) {
+    demands[index] = { ...demands[index], status };
+    writeLocal(KEYS.demands, demands);
+    return demands[index];
+  }
+  return callData('updateDemandStatus', { id, status });
 }
 
 export async function fetchStats() {

@@ -25,16 +25,17 @@ export default function Message() {
     setLoading(true);
     try {
       const invites = await fetchInvites();
+      const mappedInvites = invites.map((inv) => ({
+        id: inv.id,
+        fromUser: inv.from_user_id === user?.id ? `我邀请：${inv.to_user}` : `${inv.from_nickname} 邀请我`,
+        avatar: 'https://randomuser.me/api/portraits/lego/1.jpg',
+        time: formatTime(inv.created_at),
+        content: inv.content || '邀请你一起学习',
+        status: inv.status,
+      }));
       setAllMessages({
-        invite: invites.map((inv) => ({
-          id: inv.id,
-          fromUser: inv.from_user_id === user?.id ? `我邀请：${inv.to_user}` : `${inv.from_nickname} 邀请我`,
-          avatar: 'https://randomuser.me/api/portraits/lego/1.jpg',
-          time: formatTime(inv.created_at),
-          content: inv.content || '邀请你一起学习',
-          status: inv.status,
-        })),
-        chat: [],
+        invite: mappedInvites,
+        chat: mappedInvites.filter((item) => item.status === 'accepted' || item.status === 'completed'),
         comment: [],
         like: [],
         system: [],

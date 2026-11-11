@@ -35,6 +35,9 @@ export default function Publish() {
   const [content, setContent] = useState('');
   const [contact, setContact] = useState('');
   const [price, setPrice] = useState('');
+  const [availableTime, setAvailableTime] = useState('');
+  const [meetingPlace, setMeetingPlace] = useState('');
+  const [expiresAt, setExpiresAt] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   async function submitForm() {
@@ -56,8 +59,11 @@ export default function Publish() {
           category: selectedCategory,
           categoryName: category?.label || selectedCategory,
           title,
-          contact,
-          tags: [title, content].filter(Boolean),
+          description: content,
+          tags: [title].filter(Boolean),
+          availableTime,
+          meetingPlace,
+          expiresAt: expiresAt ? new Date(`${expiresAt}T23:59:59`).toISOString() : undefined,
           personalityAnswers: personality,
         });
       } else {
@@ -101,6 +107,23 @@ export default function Publish() {
           </select>
         </div>
 
+        {selectedType === 'partner' && (
+          <>
+            <div className="form-item">
+              <span className="label">🕒 可参与时间</span>
+              <input className="input" maxLength={100} placeholder="例如：工作日晚 7 点后" value={availableTime} onChange={(e) => setAvailableTime(e.target.value)} />
+            </div>
+            <div className="form-item">
+              <span className="label">📍 建议见面地点</span>
+              <input className="input" maxLength={100} placeholder="仅填写校内公共区域" value={meetingPlace} onChange={(e) => setMeetingPlace(e.target.value)} />
+            </div>
+            <div className="form-item">
+              <span className="label">⏰ 有效截止日期</span>
+              <input className="input" type="date" min={new Date().toISOString().slice(0, 10)} value={expiresAt} onChange={(e) => setExpiresAt(e.target.value)} />
+            </div>
+          </>
+        )}
+
         {selectedType && (
           <div className="form-item">
             <span className="label">📋 分类</span>
@@ -131,7 +154,7 @@ export default function Publish() {
         <div className="form-item">
           <span className="label">📱 联系方式</span>
           <input className="input" maxLength={50} placeholder="微信/QQ（选填，请勿填写手机号）" value={contact} onChange={(e) => setContact(e.target.value)} />
-          <span className="privacy-hint">联系方式会随内容公开展示，请勿填写手机号、宿舍号等敏感信息。</span>
+          <span className="privacy-hint">{selectedType === 'partner' ? '找搭子需求不会公开联系方式，双方接受邀请后再自行交换。' : '该联系方式会随内容公开展示，请勿填写手机号、宿舍号等敏感信息。'}</span>
         </div>
 
         <button className="submit-btn" onClick={submitForm} disabled={submitting}>

@@ -27,3 +27,5 @@
 .sp-reason { font-size: min(3vw, 14.4px); color: #7f8c8d; margin-top: min(0.5vw, 2.4px); }
 .sp-invite-btn { padding: min(1.6vw, 7.68px) min(6vw, 28.8px); background: #e67e22; color: #fff; border: none; border-radius: min(5.3vw, 25.44px); font-size: min(3.7vw, 17.76px); cursor: pointer; }
 .sp-invite-btn:disabled { background: #c8ced3; cursor: default; }
+.sp-actions { display: flex; align-items: center; gap: 8px; }
+.sp-report-btn { border: 0; background: transparent; color: #8a9690; font-size: min(3.2vw, 15px); padding: 7px; }

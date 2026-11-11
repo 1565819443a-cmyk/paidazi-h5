@@ -24,5 +24,6 @@
 .th-match { font-size: min(3.7vw, 17.76px); color: #e67e22; font-weight: 500; }
 .th-apply-btn { padding: min(1.6vw, 7.68px) min(4vw, 19.2px); background: #e67e22; color: #fff; border: none; border-radius: min(5.3vw, 25.44px); font-size: min(3.4vw, 16.32px); cursor: pointer; }
 .th-apply-btn:disabled { background: #c8ced3; cursor: default; }
+.th-report-btn { padding: min(1.6vw, 7.68px) min(2.5vw, 12px); background: transparent; color: #8a9690; border: 0; font-size: min(3.2vw, 15px); cursor: pointer; }
 .th-reason { font-size: min(3.4vw, 16.32px); color: #7f8c8d; }
 .th-empty { text-align: center; padding: min(10vw, 48px); color: #95a5a6; font-size: min(4vw, 19.2px); }

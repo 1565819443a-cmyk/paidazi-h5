@@ -22,3 +22,5 @@
   font-weight: 600;
   color: #2c3e50;
 }
+.mp-close-btn { margin-right: auto; border: 0; border-radius: 999px; padding: 7px 12px; background: #fff0ef; color: #b42318; font-weight: 700; }
+.mp-close-btn:disabled { background: #f2f4f7; color: #98a2b3; }

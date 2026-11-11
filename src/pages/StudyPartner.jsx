@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createInvite, fetchDemands } from '../utils/supabase';
+import { createInvite, createReport, fetchDemands } from '../utils/supabase';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/Toast';
 import './StudyPartner.css';
@@ -33,6 +33,7 @@ export default function StudyPartner() {
   }
 
   async function handleInvite(partner) {
+    if (!user) { showToast('请先登录试点账号后邀请'); navigate('/login'); return; }
     if (partner.is_demo) {
       showToast('这是示例内容，发布真实需求后即可邀请', 'none');
       return;
@@ -56,6 +57,16 @@ export default function StudyPartner() {
     } catch {
       showToast('发送失败，请重试');
     }
+  }
+
+  async function handleReport(partner) {
+    if (!user) { showToast('请先登录试点账号后举报'); navigate('/login'); return; }
+    const reason = window.prompt('请简要说明举报原因（至少 2 个字）');
+    if (!reason?.trim() || reason.trim().length < 2) return;
+    try {
+      await createReport({ targetType: 'demand', targetId: partner.id, reason: reason.trim() });
+      showToast('举报已提交，管理员会在后台处理', 'success');
+    } catch (error) { showToast(error.message || '举报提交失败'); }
   }
 
   return (
@@ -99,7 +110,10 @@ export default function StudyPartner() {
                   <span className="sp-credit">{p.is_demo ? '功能演示' : p.is_local ? '当前浏览器' : '校园用户'}</span>
                   <span className="sp-reason">💡 {p.is_demo ? '用于展示学习搭子流程' : p.is_local ? '数据恢复后可重新公开发布' : '来自校园用户公开发布'}</span>
                 </div>
-                <button className="sp-invite-btn" disabled={p.is_demo} onClick={() => handleInvite(p)}>{p.is_demo ? '示例' : '约TA'}</button>
+                <div className="sp-actions">
+                  {!p.is_demo && <button className="sp-report-btn" onClick={() => handleReport(p)}>举报</button>}
+                  <button className="sp-invite-btn" disabled={p.is_demo} onClick={() => handleInvite(p)}>{p.is_demo ? '示例' : '约TA'}</button>
+                </div>
               </div>
             </div>
         ))}

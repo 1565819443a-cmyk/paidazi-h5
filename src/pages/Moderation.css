@@ -1,0 +1,18 @@
+.moderation-page { min-height: 100vh; padding: 18px; background: #f7f9f8; color: #20342d; }
+.moderation-header { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 24px; }
+.moderation-header button { border: 0; background: transparent; color: #2f8f6f; font-size: 18px; padding: 7px 0; }
+.moderation-header h1 { margin: 0; font-size: 25px; }
+.moderation-header p { margin: 5px 0 0; color: #718078; font-size: 13px; }
+.moderation-page section { margin-bottom: 24px; }
+.moderation-page h2 { font-size: 18px; margin: 0 0 12px; }
+.moderation-page h2 span { color: #2f8f6f; }
+.moderation-card { background: #fff; padding: 16px; border: 1px solid #e3ebe7; border-radius: 14px; margin-bottom: 10px; }
+.moderation-card p { color: #5f6f67; line-height: 1.6; margin: 8px 0; white-space: pre-wrap; }
+.moderation-card small { color: #98a39e; }
+.moderation-actions { display: flex; gap: 10px; margin-top: 14px; justify-content: flex-end; }
+.moderation-actions button, .moderation-state button { border: 0; border-radius: 9px; padding: 9px 15px; font-weight: 700; }
+.moderation-actions .approve { color: #fff; background: #2f8f6f; }
+.moderation-actions .reject { color: #8b2c2c; background: #fff0ef; }
+.moderation-state, .moderation-empty { padding: 25px 16px; text-align: center; color: #718078; background: #fff; border-radius: 14px; }
+.moderation-state.error { color: #b42318; }
+.moderation-state button { display: block; margin: 12px auto 0; color: #fff; background: #2f8f6f; }
