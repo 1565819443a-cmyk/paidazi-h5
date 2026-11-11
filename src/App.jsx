@@ -1,34 +1,36 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import TabBar from './components/TabBar';
-import Index from './pages/Index';
 import Login from './pages/Login';
-import Community from './pages/Community';
-import Publish from './pages/Publish';
-import Message from './pages/Message';
-import Profile from './pages/Profile';
-import Comment from './pages/Comment';
-import Personality from './pages/Personality';
-import Food from './pages/Food';
-import Lost from './pages/Lost';
-import Treehole from './pages/Treehole';
-import Secondhand from './pages/Secondhand';
-import MyPosts from './pages/MyPosts';
-import MyInvites from './pages/MyInvites';
-import MyBookmarks from './pages/MyBookmarks';
-import AiChat from './pages/AiChat';
-import CreditCenter from './pages/CreditCenter';
-import TeamHall from './pages/TeamHall';
-import StudyPartner from './pages/StudyPartner';
-import ToDoList from './pages/ToDoList';
-import Toolbox from './pages/Toolbox';
-import MathViz from './pages/MathViz';
-import LatexHelper from './pages/LatexHelper';
-import Translation from './pages/Translation';
-import Canteen from './pages/Canteen';
-import ChatList from './pages/ChatList';
-import ChatDetail from './pages/ChatDetail';
-import TagProfile from './pages/TagProfile';
-import Moderation from './pages/Moderation';
+
+const Index = lazy(() => import('./pages/Index'));
+const Community = lazy(() => import('./pages/Community'));
+const Publish = lazy(() => import('./pages/Publish'));
+const Message = lazy(() => import('./pages/Message'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Comment = lazy(() => import('./pages/Comment'));
+const Personality = lazy(() => import('./pages/Personality'));
+const Food = lazy(() => import('./pages/Food'));
+const Lost = lazy(() => import('./pages/Lost'));
+const Treehole = lazy(() => import('./pages/Treehole'));
+const Secondhand = lazy(() => import('./pages/Secondhand'));
+const MyPosts = lazy(() => import('./pages/MyPosts'));
+const MyInvites = lazy(() => import('./pages/MyInvites'));
+const MyBookmarks = lazy(() => import('./pages/MyBookmarks'));
+const AiChat = lazy(() => import('./pages/AiChat'));
+const CreditCenter = lazy(() => import('./pages/CreditCenter'));
+const TeamHall = lazy(() => import('./pages/TeamHall'));
+const StudyPartner = lazy(() => import('./pages/StudyPartner'));
+const ToDoList = lazy(() => import('./pages/ToDoList'));
+const Toolbox = lazy(() => import('./pages/Toolbox'));
+const MathViz = lazy(() => import('./pages/MathViz'));
+const LatexHelper = lazy(() => import('./pages/LatexHelper'));
+const Translation = lazy(() => import('./pages/Translation'));
+const Canteen = lazy(() => import('./pages/Canteen'));
+const ChatList = lazy(() => import('./pages/ChatList'));
+const ChatDetail = lazy(() => import('./pages/ChatDetail'));
+const TagProfile = lazy(() => import('./pages/TagProfile'));
+const Moderation = lazy(() => import('./pages/Moderation'));
 
 const tabPaths = ['/index', '/community', '/publish', '/message', '/profile'];
 
@@ -36,7 +38,7 @@ export default function App() {
   return (
     <>
       <div className="page-content">
-        <Routes>
+        <Suspense fallback={<div className="route-loading">正在加载 π搭子…</div>}><Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/index" element={<Index />} />
@@ -67,7 +69,7 @@ export default function App() {
           <Route path="/chat-detail" element={<ChatDetail />} />
           <Route path="/tag-profile" element={<TagProfile />} />
           <Route path="/moderation" element={<Moderation />} />
-        </Routes>
+        </Routes></Suspense>
       </div>
       <TabBarWrapper />
     </>
